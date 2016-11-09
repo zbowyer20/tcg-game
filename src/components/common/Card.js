@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 
 const Card = ({card}) => {
   return (
-    <div>
-      <img className="card" src={card.src} />
+    <div className="card">
+      <img src={card.src} />
     </div>
   );
 };

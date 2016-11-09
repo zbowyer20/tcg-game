@@ -1,3 +1,5 @@
+$field-height: 350px;
+
 .field__left {
   display: inline-block;
   width: 15%;
@@ -14,9 +16,25 @@
 }
 
 .field {
+  height: $field-height;
   text-align: center;
 }
 
 .card {
-  width: 100px;
+  display: inline-block;
+
+  img {
+    width: 100px;
+  }
+}
+
+.handUpdate-enter {
+  opacity: 0;
+  transform: translateX(150%);
+}
+
+.handUpdate-enter.handUpdate-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: all 200ms ease-in;
 }

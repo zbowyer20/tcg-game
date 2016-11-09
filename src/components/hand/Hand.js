@@ -1,12 +1,16 @@
 import React, {PropTypes} from 'react';
 import Card from '../common/Card';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Hand = ({cards}) => {
   return (
     <div className="hand">
-      {cards.map(card =>
-        <Card key={card.id} card={card} />
-      )}
+      <ReactCSSTransitionGroup transitionName="handUpdate"
+          transitionEnterTimeout = {500} >
+        {cards.map(card =>
+          <Card key={card.id} card={card} />
+        )}
+      </ReactCSSTransitionGroup>
     </div>
   );
 };
