@@ -24,6 +24,15 @@ class FieldApi {
       }, delay);
     });
   }
+
+  static drawCard() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        let index = Math.floor(Math.random() * deck.length);
+        resolve(Object.assign({}, deck[index]));
+      }, delay);
+    });
+  }
 }
 
 export default FieldApi;
