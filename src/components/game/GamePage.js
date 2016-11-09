@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as fieldActions from '../../actions/fieldActions';
 import FieldPage from '../field/FieldPage';
+import Hand from '../hand/Hand';
 
 class GamePage extends React.Component {
   constructor(props, context) {
@@ -13,6 +14,7 @@ class GamePage extends React.Component {
     return (
       <div>
         <FieldPage field={this.props.field}/>
+        <Hand cards={this.props.game.hand} />
       </div>
     );
   }
@@ -20,13 +22,15 @@ class GamePage extends React.Component {
 
 GamePage.propTypes = {
   field: PropTypes.object.isRequired,
+  game: PropTypes.object.isRequired
 };
 
 // ownProps is a reference to the component's own properties
 function mapStateToProps(state) {
   // lets us access courses using props.courses
   return {
-    field: state.field
+    field: state.field,
+    game: state.game
   };
 }
 

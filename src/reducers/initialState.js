@@ -5,5 +5,8 @@ export default {
     backup: [],
     deck: 0,
     break: []
+  },
+  game: {
+    hand: []
   }
 };

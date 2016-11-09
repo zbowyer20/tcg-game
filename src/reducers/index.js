@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux';
 import field from './fieldReducer';
+import game from './gameReducer';
 
 const rootReducer = combineReducers({
-  field
+  field,
+  game
 });
 
 export default rootReducer;

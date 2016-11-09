@@ -5,12 +5,14 @@ import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadField} from './actions/fieldActions';
+import {loadGame} from './actions/gameActions';
 import './styles/styles.scss';
 //import {loadCourses} from './actions/courseActions';
 //import {loadAuthors} from './actions/authorActions';
 
 const store = configureStore();
 store.dispatch(loadField());
+store.dispatch(loadGame());
 //store.dispatch(loadAuthors());
 
 render(
