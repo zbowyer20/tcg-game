@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 const Card = ({card}) => {
   return (
     <div>
-      {card.name}
+      <img className="card" src={card.src} />
     </div>
   );
 };

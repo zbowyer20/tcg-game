@@ -3,7 +3,7 @@ export default {
     damage: [],
     forward: [],
     backup: [],
-    deck: [],
+    deck: 0,
     break: []
   }
 };

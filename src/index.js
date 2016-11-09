@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadField} from './actions/fieldActions';
+import './styles/styles.scss';
 //import {loadCourses} from './actions/courseActions';
 //import {loadAuthors} from './actions/authorActions';
 

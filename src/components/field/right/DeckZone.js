@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
+import DeckCard from '../../common/DeckCard';
 
 const DeckZone = ({height}) => {
   return (
     <div className="deckZone">
-      {height}
+      {height > 0 && <DeckCard />}
     </div>
   );
 };
