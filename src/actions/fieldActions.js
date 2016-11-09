@@ -9,6 +9,10 @@ export function drawCardSuccess(card) {
   return {type: types.DRAW_CARD_SUCCESS, card};
 }
 
+export function viewCard(card) {
+  return {type: types.VIEW_CARD, card};
+}
+
 export function loadField() {
   return dispatch => {
     return FieldApi.getField().then(field => {

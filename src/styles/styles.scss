@@ -1,5 +1,9 @@
 $field-height: 350px;
 
+body {
+  position: relative;
+}
+
 .field__left {
   display: inline-block;
   width: 15%;
@@ -26,6 +30,13 @@ $field-height: 350px;
   img {
     width: 100px;
   }
+}
+
+.card__active {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
 }
 
 .handUpdate-enter {

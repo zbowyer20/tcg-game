@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as fieldActions from '../../actions/fieldActions';
 import FieldPage from '../field/FieldPage';
 import Hand from '../hand/Hand';
+import ActiveCard from '../common/ActiveCard';
 
 class GamePage extends React.Component {
   constructor(props, context) {
@@ -15,17 +16,23 @@ class GamePage extends React.Component {
     };
 
     this.drawCard = this.drawCard.bind(this);
+    this.viewCard = this.viewCard.bind(this);
   }
 
   drawCard() {
     this.props.actions.drawCard();
   }
 
+  viewCard() {
+    this.props.actions.viewCard();
+  }
+
   render() {
     return (
       <div>
-        <FieldPage field={this.props.field} drawCard={this.props.actions.drawCard}/>
-        <Hand cards={this.props.game.hand} />
+        <FieldPage field={this.props.field} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
+        <Hand cards={this.props.game.hand} viewCard={this.props.actions.viewCard} />
+        {this.props.game.viewingCard && <ActiveCard card={this.props.game.viewingCard} />}
       </div>
     );
   }
