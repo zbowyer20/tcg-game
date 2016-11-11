@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 
 const CardAction = ({card, playCard}) => {
   return (
-    <div onClick={playCard.bind(this, card)}>
-      <span className="card_cta">Play Card</span>
+    <div className="card_cta" onClick={playCard.bind(this, card)}>
+      <span>Play Card</span>
     </div>
   );
 };

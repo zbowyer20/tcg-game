@@ -3,8 +3,8 @@ import CardAction from './CardAction';
 
 const CardActions = ({card, playCard}) => {
   return (
-    <div>
-      <CardAction card={card} playCard={playCard} />)
+    <div className="cardActions">
+      <CardAction card={card} playCard={playCard} />
     </div>
   );
 };
