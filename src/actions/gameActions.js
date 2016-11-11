@@ -1,28 +1,14 @@
 import * as types from './actionTypes';
 import GameApi from '../api/mockGameApi';
 
-export function loadGameSuccess(game) {
-  return {type: types.LOAD_GAME_SUCCESS, game};
+export function loadHandSuccess(hand) {
+  return {type: types.LOAD_HAND_SUCCESS, hand};
 }
 
-export function drawCardSuccess(card) {
-  return {type: types.DRAW_CARD_SUCCESS, card};
-}
-
-export function loadGame() {
+export function loadHand() {
   return dispatch => {
-    return GameApi.getGame().then(game => {
-      dispatch(loadGameSuccess(game));
-    }).catch(error => {
-      throw(error);
-    });
-  };
-}
-
-export function drawCard() {
-  return dispatch => {
-    return GameApi.drawCard().then(card => {
-      dispatch(drawCardSuccess(card));
+    return GameApi.getHand().then(game => {
+      dispatch(loadHandSuccess(game));
     }).catch(error => {
       throw(error);
     });

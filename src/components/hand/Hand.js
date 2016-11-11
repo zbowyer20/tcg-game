@@ -6,7 +6,8 @@ const Hand = ({cards, viewCard}) => {
   return (
     <div className="hand">
       <ReactCSSTransitionGroup transitionName="handUpdate"
-          transitionEnterTimeout = {500} >
+          transitionEnterTimeout = {200}
+          transitionLeaveTimeout = {200} >
         {cards.map(card =>
           <Card key={card.id} card={card} viewCard={viewCard} />
         )}

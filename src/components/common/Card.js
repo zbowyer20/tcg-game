@@ -1,17 +1,41 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as cardActions from '../../actions/cardActions';
 
-const Card = ({card, viewCard}) => {
-  console.log(viewCard);
-  return (
-    <div className="card" onClick={viewCard.bind(this, card)}>
-      <img src={card.src} />
-    </div>
-  );
-};
+class Card extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  render() {
+    return (
+      <div className="card" onClick={this.props.viewCard.bind(this, this.props.card)}>
+        <img src={this.props.card.src} />
+      </div>
+    );
+  }
+}
 
 Card.propTypes = {
   card: PropTypes.object.isRequired,
   viewCard: PropTypes.func.isRequired
 };
 
-export default Card;
+// ownProps is a reference to the component's own properties
+function mapStateToProps() {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    // createCourse is a function taking one parameter, course
+    actions: bindActionCreators(cardActions, dispatch)
+  };
+}
+
+// connect allows components to communicate with redux
+// that makes this a container component
+const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
+export default connectedStateAndProps(Card);

@@ -13,6 +13,10 @@ export function viewCard(card) {
   return {type: types.VIEW_CARD, card};
 }
 
+export function closeCardSuccess() {
+  return {type: types.CLOSE_CARD};
+}
+
 export function loadField() {
   return dispatch => {
     return FieldApi.getField().then(field => {
@@ -30,5 +34,11 @@ export function drawCard() {
     }).catch(error => {
       throw(error);
     });
+  };
+}
+
+export function closeCard() {
+  return dispatch => {
+    dispatch(closeCardSuccess());
   };
 }

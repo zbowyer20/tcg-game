@@ -3,15 +3,13 @@ import initialState from './initialState';
 
 export default function gameReducer(state = initialState.game, action) {
   switch(action.type) {
-    case types.LOAD_GAME_SUCCESS:
-      return action.game;
-    case types.DRAW_CARD_SUCCESS:
-      return Object.assign({}, state, {
-        hand: [...state.hand, action.card]
-      });
     case types.VIEW_CARD:
       return Object.assign({}, state, {
         viewingCard: action.card
+      });
+    case types.CLOSE_CARD:
+      return Object.assign({}, state, {
+        viewingCard: null
       });
     default:
       return state;

@@ -7,6 +7,8 @@ export default {
     break: []
   },
   game: {
-    hand: []
-  }
+    viewingCard: null
+  },
+  hand: [
+  ]
 };
