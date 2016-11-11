@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import classnames from 'classnames';
 import * as cardActions from '../../actions/cardActions';
 
 class Card extends React.Component {
@@ -9,8 +10,13 @@ class Card extends React.Component {
   }
 
   render() {
+    let classNames = classnames({
+      'card': true,
+      'card-dull': this.props.card.position == 'Dull',
+      'card-active': this.props.card.position == 'Active'
+    });
     return (
-      <div className="card" onClick={this.props.viewCard.bind(this, this.props.card)}>
+      <div className={classNames} onClick={this.props.viewCard.bind(this, this.props.card)}>
         <img src={this.props.card.src} />
       </div>
     );

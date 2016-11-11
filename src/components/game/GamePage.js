@@ -41,12 +41,11 @@ class GamePage extends React.Component {
   }
 
   render() {
-    console.log(this.props.actions);
     return (
       <div>
         <FieldPage field={this.props.field} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
         <Hand cards={this.props.hand} viewCard={this.props.actions.viewCard} />
-        {this.props.game.viewingCard && <ActiveCard card={this.props.game.viewingCard} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} />}
+        {this.props.game.viewingCard && <ActiveCard card={this.props.game.viewingCard} hand={this.props.hand} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} />}
       </div>
     );
   }

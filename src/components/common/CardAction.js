@@ -1,16 +1,16 @@
 import React, {PropTypes} from 'react';
 
-const CardAction = ({card, playCard}) => {
+const CardAction = ({card, action}) => {
   return (
-    <div className="card_cta" onClick={playCard.bind(this, card)}>
-      <span>Play Card</span>
+    <div className="card_cta" onClick={action.action.bind(this, card)}>
+      <span>{action.name}</span>
     </div>
   );
 };
 
 CardAction.propTypes = {
   card: PropTypes.object.isRequired,
-  playCard: PropTypes.func.isRequired
+  action: PropTypes.object.isRequired
 };
 
 export default CardAction;

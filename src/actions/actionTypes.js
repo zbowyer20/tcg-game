@@ -5,3 +5,4 @@ export const REMOVE_CARD_FROM_HAND = 'REMOVE_CARD_FROM_HAND';
 export const VIEW_CARD = 'VIEW_CARD';
 export const CLOSE_CARD = 'CLOSE_CARD';
 export const PLAY_CARD = 'PLAY_CARD';
+export const ACTIVATE_CARD = 'ACTIVATE_CARD';

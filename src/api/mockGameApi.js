@@ -17,18 +17,32 @@ class GameApi {
   static playCard(card) {
     return new Promise((resolve) => {
       setTimeout(() => {
+        let playedCard = Object.assign({}, card, {
+          position: card.type == 'Backup' ? 'Dull' : 'Active'
+        });
         if (card.type == 'Forward') {
           resolve (Object.assign({}, {
-            'card': card,
+            'card': playedCard,
             'to': 'forward'
           }));
         }
         else {
           resolve (Object.assign({}, {
-            'card': card,
-            'to': 'backup'
+            'card': playedCard,
+            'to': 'backup',
           }));
         }
+      }, delay);
+    });
+  }
+
+  static activateCard(card) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve (Object.assign({}, {
+          'card': card,
+          'position': 'dull'
+        }));
       }, delay);
     });
   }

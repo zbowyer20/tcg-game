@@ -10,12 +10,27 @@ export function removeCardFromHand(move) {
   return {type: types.REMOVE_CARD_FROM_HAND, move};
 }
 
+export function activateCardSuccess(move) {
+  return {type: types.ACTIVATE_CARD, move};
+}
+
 export function playCard(card) {
   return dispatch => {
     return GameApi.playCard(card).then(move => {
       dispatch(closeCard());
       dispatch(removeCardFromHand(move));
       dispatch(playCardSuccess(move));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function activateCard(card) {
+  return dispatch => {
+    return GameApi.activateCard(card).then(move => {
+      dispatch(closeCard());
+      dispatch(activateCardSuccess(move));
     }).catch(error => {
       throw(error);
     });

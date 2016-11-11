@@ -3,9 +3,10 @@ import initialState from './initialState';
 
 export default function fieldReducer(state = initialState.field, action) {
   switch(action.type) {
-    case types.LOAD_FIELD_SUCCESS:
+    case types.LOAD_FIELD_SUCCESS: {
       return action.field;
-    case types.PLAY_CARD:
+    }
+    case types.PLAY_CARD: {
       if (action.move.to == 'forward') {
         return Object.assign({}, state, {
           forward: [...state.forward, action.move.card]
@@ -17,7 +18,29 @@ export default function fieldReducer(state = initialState.field, action) {
         });
       }
       return state;
-    default:
+    }
+    case types.ACTIVATE_CARD: {
+      let activatedCard = Object.assign({}, action.move.card, {
+        position: 'Dull'
+      });
+      if (action.move.card.type == 'Forward') {
+        return Object.assign({}, state, {
+            forward: state.forward.map(function(card) {
+              return card.id == activatedCard.id ? activatedCard : card;
+            })
+        });
+      }
+      else if (action.move.card.type == 'Backup') {
+        return Object.assign({}, state, {
+            backup: state.backup.map(function(card) {
+              return card.id == activatedCard.id ? activatedCard : card;
+            })
+        });
+      }
       return state;
+    }
+    default: {
+      return state;
+    }
   }
 }
