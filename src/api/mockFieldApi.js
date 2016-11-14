@@ -1,16 +1,5 @@
 import delay from './delay';
 
-// This file mocks a web API by working with the hard-coded data below.
-// It uses setTimeout to simulate the delay of an AJAX call.
-// All calls return promises.
-const field = {
-  damage: [],
-  forward: [],
-  backup: [],
-  deck: 50,
-  break: []
-};
-
 const deck = [
   {"id": "1-001", "name": "Auron", "element": "Fire", "cost": "3", "type": "Forward", "src": "http://www.bigorbitcards.co.uk/images/thumbnails/280/400/detailed/494/auron-1_sjpw-07.jpg"},
   {"id": "1-028", "name": "Reynn", "element": "Fire", "cost": "2", "type": "Forward", "src": "http://www.bigorbitcards.co.uk/images/thumbnails/280/400/detailed/494/reynn-28_zndo-n9.jpg"},
@@ -23,14 +12,6 @@ const deck = [
 //};
 
 class FieldApi {
-  static getField() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(Object.assign({}, field));
-      }, delay);
-    });
-  }
-
   static drawCard() {
     return new Promise((resolve) => {
       setTimeout(() => {

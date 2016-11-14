@@ -1,10 +1,10 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
-export default function fieldReducer(state = initialState.field, action) {
+export default function fieldReducer(state = initialState.field[0], action) {
   switch(action.type) {
-    case types.LOAD_FIELD_SUCCESS: {
-      return action.field;
+    case types.LOAD_GAME_SUCCESS: {
+      return action.game.field[0];
     }
     case types.PLAY_CARD: {
       if (action.move.to == 'forward') {
