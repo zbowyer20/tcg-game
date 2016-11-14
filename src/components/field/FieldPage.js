@@ -13,7 +13,7 @@ class FieldPage extends React.Component {
       <div className="field">
         <LeftCards damageCards={this.props.field.damage} viewCard={this.props.viewCard}/>
         <MiddleCards forwardCards={this.props.field.forward} backupCards={this.props.field.backup} viewCard={this.props.viewCard}/>
-        <RightCards deckHeight={this.props.field.deck} breakCards={this.props.field.break} drawCard={this.props.drawCard} viewCard={this.props.viewCard} />
+        <RightCards player={this.props.player} deckHeight={this.props.field.deck} breakCards={this.props.field.break} drawCard={this.props.drawCard} viewCard={this.props.viewCard} />
       </div>
     );
   }
@@ -21,6 +21,7 @@ class FieldPage extends React.Component {
 
 FieldPage.propTypes = {
   field: PropTypes.object.isRequired,
+  player: PropTypes.object.isRequired,
   drawCard: PropTypes.func.isRequired,
   viewCard: PropTypes.func.isRequired
 };

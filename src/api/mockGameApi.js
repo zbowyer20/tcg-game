@@ -17,16 +17,24 @@ const field2 = {
 };
 
 const player1 = {
+  id: "PLAYER_ONE",
   hand: []
 };
 
 const player2 = {
+  id: "PLAYER_TWO",
   hand: []
 };
 
 const game = {
-  field: [field1, field2],
-  players: [player1, player2]
+  field: {
+    "PLAYER_ONE": field1,
+    "PLAYER_TWO": field2
+  },
+  players: {
+    "PLAYER_ONE": player1,
+    "PLAYER_TWO": player2
+  }
 };
 
 // This file mocks a web API by working with the hard-coded data below.
@@ -51,22 +59,24 @@ class GameApi {
     });
   }
 
-  static playCard(card) {
+  static playCard(player, card) {
     return new Promise((resolve) => {
       setTimeout(() => {
         let playedCard = Object.assign({}, card, {
           position: card.type == 'Backup' ? 'Dull' : 'Active'
         });
-        if (card.type == 'Forward') {
+        if (card.type == 'forward') {
           resolve (Object.assign({}, {
             'card': playedCard,
-            'to': 'forward'
+            'to': 'forward',
+            'player': player
           }));
         }
         else {
           resolve (Object.assign({}, {
             'card': playedCard,
             'to': 'backup',
+            'player': player
           }));
         }
       }, delay);
@@ -79,6 +89,20 @@ class GameApi {
         resolve (Object.assign({}, {
           'card': card,
           'position': 'dull'
+        }));
+      }, delay);
+    });
+  }
+
+  static discardCard(player, card) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve (Object.assign({}, {
+          'card': card,
+          'player': player,
+          'cp': {
+            'amount': 2,
+          }
         }));
       }, delay);
     });

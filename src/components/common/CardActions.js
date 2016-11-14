@@ -36,17 +36,26 @@ class CardActions extends React.Component {
     };
   }
 
+  discard() {
+    return {
+      name: 'Discard',
+      action: this.props.actions.discardCard
+    };
+  }
+
   render() {
     return (
       <div className="cardActions">
-        {this.playable(this.props.card) && <CardAction card={this.props.card} action={this.play()} />}
-        {this.active(this.props.card) && <CardAction card={this.props.card} action={this.activate()} />}
+        {this.playable(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.play()} />}
+        {this.active(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.activate()} />}
+        {this.inHand(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.discard()} />}
       </div>
     );
   }
 }
 
 CardActions.propTypes = {
+  player: PropTypes.object.isRequired,
   card: PropTypes.object.isRequired,
   hand: PropTypes.array.isRequired,
 };

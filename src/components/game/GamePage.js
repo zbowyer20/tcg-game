@@ -14,7 +14,7 @@ class GamePage extends React.Component {
 
     this.state = {
       field: Object.assign({}, this.props.field),
-      hand: Object.assign({}, this.props.hand),
+      players: Object.assign({}, this.props.players),
       game: Object.assign({}, this.props.game)
     };
 
@@ -22,6 +22,7 @@ class GamePage extends React.Component {
     this.viewCard = this.viewCard.bind(this);
     this.closeCard = this.closeCard.bind(this);
     this.playCard = this.playCard.bind(this);
+    this.discardCard = this.discardCard.bind(this);
   }
 
   drawCard() {
@@ -40,12 +41,16 @@ class GamePage extends React.Component {
     this.props.actions.playCard();
   }
 
+  discardCard() {
+    this.props.actions.discardCard();
+  }
+
   render() {
     return (
       <div>
-        <FieldPage field={this.props.field} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
-        <Hand cards={this.props.hand} viewCard={this.props.actions.viewCard} />
-        {this.props.game.viewingCard && <ActiveCard card={this.props.game.viewingCard} hand={this.props.hand} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} />}
+        <FieldPage field={this.props.field.PLAYER_ONE} player={this.props.players.PLAYER_ONE} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
+        <Hand cards={this.props.players.PLAYER_ONE.hand} viewCard={this.props.actions.viewCard} />
+        {this.props.game.viewingCard && <ActiveCard player={this.props.players.PLAYER_ONE} card={this.props.game.viewingCard} hand={this.props.players.PLAYER_ONE.hand} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} discardCard={this.props.actions.discardCard} />}
       </div>
     );
   }
@@ -53,7 +58,7 @@ class GamePage extends React.Component {
 
 GamePage.propTypes = {
   field: PropTypes.object.isRequired,
-  hand: PropTypes.array.isRequired,
+  players: PropTypes.object.isRequired,
   game: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 };
@@ -63,7 +68,7 @@ function mapStateToProps(state) {
   // lets us access courses using props.courses
   return {
     field: state.field,
-    hand: state.hand,
+    players: state.players,
     game: state.game
   };
 }

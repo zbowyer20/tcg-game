@@ -14,9 +14,17 @@ export function activateCardSuccess(move) {
   return {type: types.ACTIVATE_CARD, move};
 }
 
-export function playCard(card) {
+export function discardCardSuccess(move) {
+  return {type: types.DISCARD_CARD, move};
+}
+
+export function incrementCP(move) {
+  return {type: types.INCREMENT_CP, move};
+}
+
+export function playCard(player, card) {
   return dispatch => {
-    return GameApi.playCard(card).then(move => {
+    return GameApi.playCard(player, card).then(move => {
       dispatch(closeCard());
       dispatch(removeCardFromHand(move));
       dispatch(playCardSuccess(move));
@@ -26,11 +34,24 @@ export function playCard(card) {
   };
 }
 
-export function activateCard(card) {
+export function activateCard(player, card) {
   return dispatch => {
     return GameApi.activateCard(card).then(move => {
       dispatch(closeCard());
       dispatch(activateCardSuccess(move));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function discardCard(player, card) {
+  return dispatch => {
+    return GameApi.discardCard(player, card).then(move => {
+      dispatch(closeCard());
+      dispatch(removeCardFromHand(move));
+      dispatch(discardCardSuccess(move));
+      dispatch(incrementCP(move));
     }).catch(error => {
       throw(error);
     });

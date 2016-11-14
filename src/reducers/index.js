@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import field from './fieldReducer';
 import game from './gameReducer';
-import hand from './handReducer';
+import players from './playersReducer';
 
 const rootReducer = combineReducers({
   field,
   game,
-  hand
+  players
 });
 
 export default rootReducer;

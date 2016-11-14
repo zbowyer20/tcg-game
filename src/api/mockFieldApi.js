@@ -12,11 +12,14 @@ const deck = [
 //};
 
 class FieldApi {
-  static drawCard() {
+  static drawCard(player) {
     return new Promise((resolve) => {
       setTimeout(() => {
         let index = Math.floor(Math.random() * deck.length);
-        resolve(Object.assign({}, deck[index]));
+        resolve(Object.assign({}, {
+          card: deck[index],
+          player: player
+        }));
       }, delay);
     });
   }

@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 import FieldApi from '../api/mockFieldApi';
 
-export function drawCardSuccess(card) {
-  return {type: types.DRAW_CARD_SUCCESS, card};
+export function drawCardSuccess(data) {
+  return {type: types.DRAW_CARD_SUCCESS, data};
 }
 
 export function viewCard(card) {
@@ -13,10 +13,10 @@ export function closeCardSuccess() {
   return {type: types.CLOSE_CARD};
 }
 
-export function drawCard() {
+export function drawCard(player) {
   return dispatch => {
-    return FieldApi.drawCard().then(card => {
-      dispatch(drawCardSuccess(card));
+    return FieldApi.drawCard(player).then(data => {
+      dispatch(drawCardSuccess(data));
     }).catch(error => {
       throw(error);
     });

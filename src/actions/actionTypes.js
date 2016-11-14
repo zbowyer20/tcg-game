@@ -5,3 +5,5 @@ export const VIEW_CARD = 'VIEW_CARD';
 export const CLOSE_CARD = 'CLOSE_CARD';
 export const PLAY_CARD = 'PLAY_CARD';
 export const ACTIVATE_CARD = 'ACTIVATE_CARD';
+export const DISCARD_CARD = 'DISCARD_CARD';
+export const INCREMENT_CP = 'INCREMENT_CP';
