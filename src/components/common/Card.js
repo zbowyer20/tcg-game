@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import classnames from 'classnames';
 import * as cardActions from '../../actions/cardActions';
+import * as terms from '../../constants/gameConstants';
 
 class Card extends React.Component {
   constructor(props, context) {
@@ -12,8 +13,8 @@ class Card extends React.Component {
   render() {
     let classNames = classnames({
       'card': true,
-      'card-dull': this.props.card.position == 'Dull',
-      'card-active': this.props.card.position == 'Active'
+      'card-dull': this.props.card.position == terms.DULL_STATE,
+      'card-active': this.props.card.position == terms.ACTIVE_STATE
     });
     return (
       <div className={classNames} onClick={this.props.viewCard.bind(this, this.props.card)}>

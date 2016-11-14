@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import CardAction from './CardAction';
 import * as cardActions from '../../actions/cardActions';
+import * as terms from '../../constants/gameConstants';
 
 class CardActions extends React.Component {
   constructor(props, context) {
@@ -26,7 +27,7 @@ class CardActions extends React.Component {
   }
 
   active(card) {
-    return card.position == "Active";
+    return card.position == terms.ACTIVE_STATE;
   }
 
   activate() {

@@ -1,4 +1,5 @@
 import delay from './delay';
+import * as terms from '../constants/gameConstants';
 
 const field1 = {
   damage: [],
@@ -63,19 +64,19 @@ class GameApi {
     return new Promise((resolve) => {
       setTimeout(() => {
         let playedCard = Object.assign({}, card, {
-          position: card.type == 'Backup' ? 'Dull' : 'Active'
+          position: card.type == terms.BACKUP ? terms.DULL_STATE : terms.ACTIVE_STATE
         });
-        if (card.type == 'forward') {
+        if (card.type == terms.FORWARD) {
           resolve (Object.assign({}, {
             'card': playedCard,
-            'to': 'forward',
+            'to': terms.FORWARD,
             'player': player
           }));
         }
         else {
           resolve (Object.assign({}, {
             'card': playedCard,
-            'to': 'backup',
+            'to': terms.BACKUP,
             'player': player
           }));
         }
@@ -88,7 +89,7 @@ class GameApi {
       setTimeout(() => {
         resolve (Object.assign({}, {
           'card': card,
-          'position': 'dull'
+          'position': terms.DULL_STATE
         }));
       }, delay);
     });

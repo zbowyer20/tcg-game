@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes';
+import * as terms from '../constants/gameConstants';
 import initialState from './initialState';
 
 export default function fieldReducer(state = initialState.field, action) {
@@ -16,7 +17,7 @@ export default function fieldReducer(state = initialState.field, action) {
     }
     case types.ACTIVATE_CARD: {
       let activatedCard = Object.assign({}, action.move.card, {
-        position: 'Dull'
+        position: terms.DULL_STATE
       });
       let playerCards = Object.assign({}, state.PLAYER_ONE, {
         [action.move.card.type]:
