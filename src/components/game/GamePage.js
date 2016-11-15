@@ -19,11 +19,15 @@ class GamePage extends React.Component {
         players = this.props.players,
         actions = this.props.actions,
         game = this.props.game,
-        me = this.props.game.me;
+        me = this.props.game.me,
+        opponent = this.props.game.opponent;
 
     return (
       <div>
         <Stats players={players} />
+        <div className="opponent">
+          <FieldPage field={field[opponent]} player={players[opponent]} viewCard={actions.viewCard} />
+        </div>
         <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
         <Hand cards={players[me].hand} viewCard={actions.viewCard} />
         {game.viewingCard &&

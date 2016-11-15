@@ -15,7 +15,7 @@ RightCards.propTypes = {
   player: PropTypes.object.isRequired,
   deckHeight: PropTypes.number.isRequired,
   breakCards: PropTypes.array.isRequired,
-  drawCard: PropTypes.func.isRequired,
+  drawCard: PropTypes.func,
   viewCard: PropTypes.func.isRequired
 };
 

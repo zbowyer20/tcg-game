@@ -22,7 +22,7 @@ class FieldPage extends React.Component {
 FieldPage.propTypes = {
   field: PropTypes.object.isRequired,
   player: PropTypes.object.isRequired,
-  drawCard: PropTypes.func.isRequired,
+  drawCard: PropTypes.func,
   viewCard: PropTypes.func.isRequired
 };
 

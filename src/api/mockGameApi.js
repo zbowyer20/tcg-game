@@ -44,7 +44,8 @@ const game = {
     "PLAYER_ONE": player1,
     "PLAYER_TWO": player2
   },
-  me: "PLAYER_ONE"
+  me: "PLAYER_ONE",
+  opponent: "PLAYER_TWO"
 };
 
 // This file mocks a web API by working with the hard-coded data below.
