@@ -7,6 +7,7 @@ import * as cardActions from '../../actions/cardActions';
 import FieldPage from '../field/FieldPage';
 import Hand from '../hand/Hand';
 import ActiveCard from '../common/ActiveCard';
+import Stats from '../stats/Stats';
 
 class GamePage extends React.Component {
   constructor(props, context) {
@@ -48,6 +49,7 @@ class GamePage extends React.Component {
   render() {
     return (
       <div>
+        <Stats players={this.props.players} />
         <FieldPage field={this.props.field.PLAYER_ONE} player={this.props.players.PLAYER_ONE} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
         <Hand cards={this.props.players.PLAYER_ONE.hand} viewCard={this.props.actions.viewCard} />
         {this.props.game.viewingCard && <ActiveCard player={this.props.players.PLAYER_ONE} card={this.props.game.viewingCard} hand={this.props.players.PLAYER_ONE.hand} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} discardCard={this.props.actions.discardCard} />}

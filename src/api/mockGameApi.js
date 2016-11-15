@@ -19,12 +19,14 @@ const field2 = {
 
 const player1 = {
   id: "PLAYER_ONE",
-  hand: []
+  hand: [],
+  cp: 0
 };
 
 const player2 = {
   id: "PLAYER_TWO",
-  hand: []
+  hand: [],
+  cp: 0
 };
 
 const game = {
