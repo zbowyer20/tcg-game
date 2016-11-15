@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import DeckCard from '../../common/DeckCard';
+import DeckCard from '../../card/DeckCard';
 
 const DeckZone = ({player, height, drawCard}) => {
   return (

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Card from '../common/Card';
+import Card from '../card/Card';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Hand = ({cards, viewCard}) => {

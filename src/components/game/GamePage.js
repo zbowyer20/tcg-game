@@ -6,53 +6,31 @@ import * as gameActions from '../../actions/gameActions';
 import * as cardActions from '../../actions/cardActions';
 import FieldPage from '../field/FieldPage';
 import Hand from '../hand/Hand';
-import ActiveCard from '../common/ActiveCard';
+import ActiveCard from '../card/ActiveCard';
 import Stats from '../stats/Stats';
 
 class GamePage extends React.Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      field: Object.assign({}, this.props.field),
-      players: Object.assign({}, this.props.players),
-      game: Object.assign({}, this.props.game)
-    };
-
-    this.drawCard = this.drawCard.bind(this);
-    this.viewCard = this.viewCard.bind(this);
-    this.closeCard = this.closeCard.bind(this);
-    this.playCard = this.playCard.bind(this);
-    this.discardCard = this.discardCard.bind(this);
-  }
-
-  drawCard() {
-    this.props.actions.drawCard();
-  }
-
-  viewCard() {
-    this.props.actions.viewCard();
-  }
-
-  closeCard() {
-    this.props.actions.closeCard();
-  }
-
-  playCard() {
-    this.props.actions.playCard();
-  }
-
-  discardCard() {
-    this.props.actions.discardCard();
   }
 
   render() {
+    let field = this.props.field,
+        players = this.props.players,
+        actions = this.props.actions,
+        game = this.props.game,
+        me = this.props.game.me;
+
     return (
       <div>
-        <Stats players={this.props.players} />
-        <FieldPage field={this.props.field.PLAYER_ONE} player={this.props.players.PLAYER_ONE} drawCard={this.props.actions.drawCard} viewCard={this.props.actions.viewCard}/>
-        <Hand cards={this.props.players.PLAYER_ONE.hand} viewCard={this.props.actions.viewCard} />
-        {this.props.game.viewingCard && <ActiveCard player={this.props.players.PLAYER_ONE} card={this.props.game.viewingCard} hand={this.props.players.PLAYER_ONE.hand} closeCard={this.props.actions.closeCard} playCard={this.props.actions.playCard} discardCard={this.props.actions.discardCard} />}
+        <Stats players={players} />
+        <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
+        <Hand cards={players[me].hand} viewCard={actions.viewCard} />
+        {game.viewingCard &&
+          <ActiveCard player={players[me]} card={game.viewingCard} hand={players[me].hand} closeCard={actions.closeCard}
+            playCard={actions.playCard} discardCard={actions.discardCard}
+          />
+        }
       </div>
     );
   }
@@ -62,7 +40,7 @@ GamePage.propTypes = {
   field: PropTypes.object.isRequired,
   players: PropTypes.object.isRequired,
   game: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 };
 
 // ownProps is a reference to the component's own properties
@@ -71,7 +49,7 @@ function mapStateToProps(state) {
   return {
     field: state.field,
     players: state.players,
-    game: state.game
+    game: state.game,
   };
 }
 

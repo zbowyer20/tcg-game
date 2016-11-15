@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Veil from './Veil';
+import Veil from '../common/Veil';
 import CardActions from './CardActions';
 
 const ActiveCard = ({player, card, hand, closeCard, playCard}) => {

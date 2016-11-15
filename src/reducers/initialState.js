@@ -34,6 +34,7 @@ export default {
     }
   },
   game: {
-    viewingCard: null
+    viewingCard: null,
+    me: "PLAYER_ONE"
   }
 };
