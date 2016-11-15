@@ -16,11 +16,19 @@ class CardActions extends React.Component {
   }
 
   hasCP(player, card) {
-    return player.cp >= card.cost;
+    return player.cp.amount >= card.cost;
+  }
+
+  hasCPElement(player, card) {
+    return player.cp.elements.indexOf(card.element) > -1;
+  }
+
+  hasCPRequirement(player, card){
+    return this.hasCP(player, card) && this.hasCPElement(player, card);
   }
 
   playable(player, card) {
-    return this.inHand(card) && this.hasCP(player, card);
+    return this.inHand(card) && this.hasCPRequirement(player, card) && this.hasCPElement(player, card);
   }
 
   play() {
