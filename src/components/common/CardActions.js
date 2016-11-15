@@ -15,8 +15,12 @@ class CardActions extends React.Component {
     return this.props.hand.includes(card);
   }
 
-  playable(card) {
-    return this.inHand(card);
+  hasCP(player, card) {
+    return player.cp >= card.cost;
+  }
+
+  playable(player, card) {
+    return this.inHand(card) && this.hasCP(player, card);
   }
 
   play() {
@@ -47,7 +51,7 @@ class CardActions extends React.Component {
   render() {
     return (
       <div className="cardActions">
-        {this.playable(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.play()} />}
+        {this.playable(this.props.player,this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.play()} />}
         {this.active(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.activate()} />}
         {this.inHand(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.discard()} />}
       </div>

@@ -72,14 +72,16 @@ class GameApi {
           resolve (Object.assign({}, {
             'card': playedCard,
             'to': terms.FORWARD,
-            'player': player
+            'player': player,
+            'cp': player.cp - card.cost
           }));
         }
         else {
           resolve (Object.assign({}, {
             'card': playedCard,
             'to': terms.BACKUP,
-            'player': player
+            'player': player,
+            'cp': player.cp - card.cost
           }));
         }
       }, delay);
@@ -103,9 +105,7 @@ class GameApi {
         resolve (Object.assign({}, {
           'card': card,
           'player': player,
-          'cp': {
-            'amount': 2,
-          }
+          'cp': player.cp + 2
         }));
       }, delay);
     });

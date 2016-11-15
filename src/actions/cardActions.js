@@ -18,8 +18,8 @@ export function discardCardSuccess(move) {
   return {type: types.DISCARD_CARD, move};
 }
 
-export function incrementCP(move) {
-  return {type: types.INCREMENT_CP, move};
+export function setCP(move) {
+  return {type: types.SET_CP, move};
 }
 
 export function playCard(player, card) {
@@ -27,6 +27,7 @@ export function playCard(player, card) {
     return GameApi.playCard(player, card).then(move => {
       dispatch(closeCard());
       dispatch(removeCardFromHand(move));
+      dispatch(setCP(move));
       dispatch(playCardSuccess(move));
     }).catch(error => {
       throw(error);
@@ -51,7 +52,7 @@ export function discardCard(player, card) {
       dispatch(closeCard());
       dispatch(removeCardFromHand(move));
       dispatch(discardCardSuccess(move));
-      dispatch(incrementCP(move));
+      dispatch(setCP(move));
     }).catch(error => {
       throw(error);
     });
