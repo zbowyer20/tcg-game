@@ -19,12 +19,18 @@ export default {
     "PLAYER_ONE": {
       id: "PLAYER_ONE",
       hand: [],
-      cp: 0
+      cp: {
+        amount: 0,
+        elements: []
+      }
     },
     "PLAYER_TWO": {
       id: "PLAYER_TWO",
       hand: 0,
-      cp: 0
+      cp: {
+        amount: 0,
+        elements: []
+      }
     }
   },
   game: {

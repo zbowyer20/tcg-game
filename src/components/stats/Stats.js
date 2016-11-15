@@ -4,7 +4,7 @@ import Stat from './Stat';
 const Stats = ({players}) => {
   return (
     <div className="stats">
-      <Stat label="Your CP" value={players.PLAYER_ONE.cp + ""} />
+      <Stat label="Your CP" value={players.PLAYER_ONE.cp.amount + " [" + players.PLAYER_ONE.cp.elements.join(", ") + "]"} />
     </div>
   );
 };

@@ -20,13 +20,19 @@ const field2 = {
 const player1 = {
   id: "PLAYER_ONE",
   hand: [],
-  cp: 0
+  cp: {
+    amount: 0,
+    elements: []
+  }
 };
 
 const player2 = {
   id: "PLAYER_TWO",
   hand: [],
-  cp: 0
+  cp: {
+    amount: 0,
+    elements: []
+  }
 };
 
 const game = {
@@ -46,6 +52,12 @@ const game = {
 const hand = [];
 
 class GameApi {
+  static getUniqueArray(arr) {
+    return arr.filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    });
+  }
+
   static getGame() {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -73,7 +85,10 @@ class GameApi {
             'card': playedCard,
             'to': terms.FORWARD,
             'player': player,
-            'cp': player.cp - card.cost
+            'cp': {
+              amount: 0,
+              elements: []
+            }
           }));
         }
         else {
@@ -81,7 +96,10 @@ class GameApi {
             'card': playedCard,
             'to': terms.BACKUP,
             'player': player,
-            'cp': player.cp - card.cost
+            'cp': {
+              amount: 0,
+              elements: []
+            }
           }));
         }
       }, delay);
@@ -100,12 +118,16 @@ class GameApi {
   }
 
   static discardCard(player, card) {
+    let self = this;
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve (Object.assign({}, {
           'card': card,
           'player': player,
-          'cp': player.cp + 2
+          'cp': {
+            amount: player.cp.amount + 2,
+            elements: self.getUniqueArray([...player.cp.elements, card.element])
+          }
         }));
       }, delay);
     });

@@ -24,7 +24,10 @@ export default function playersReducer(state = initialState.players, action) {
     }
     case types.SET_CP: {
       let player = Object.assign({}, state[action.move.player.id], {
-        cp: action.move.cp
+        cp: {
+          amount: action.move.cp.amount,
+          elements: action.move.cp.elements
+        }
       });
       return Object.assign({}, state, {
         [player.id]: player
