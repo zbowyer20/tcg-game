@@ -15,12 +15,20 @@ export function closeCardSuccess() {
 
 export function drawCard(player) {
   return dispatch => {
-    return FieldApi.drawCard(player).then(data => {
-      dispatch(drawCardSuccess(data));
-    }).catch(error => {
-      throw(error);
+    let url = 'http://localhost:3535/api/field/draw/' + player.id;
+    fetch(url).then(response => {
+      return response.json();
+    }).then((json) => {
+      dispatch(drawCardSuccess(json));
     });
   };
+  // return dispatch => {
+  //   return FieldApi.drawCard(player).then(data => {
+  //     dispatch(drawCardSuccess(data));
+  //   }).catch(error => {
+  //     throw(error);
+  //   });
+  // };
 }
 
 export function closeCard() {

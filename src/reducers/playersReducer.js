@@ -4,14 +4,20 @@ import initialState from './initialState';
 export default function playersReducer(state = initialState.players, action) {
   switch(action.type) {
     case types.START_GAME: {
+      let me = Object.assign({}, state.PLAYER_ONE, {
+        id: action.data.game.settings.me
+      });
+      let opponent = Object.assign({}, state.PLAYER_TWO, {
+        id: action.data.game.settings.opponent
+      });
       return Object.assign({}, {
-        [action.data.game.settings.me]: Object.assign({}, state.PLAYER_ONE),
-        [action.data.game.settings.opponent]: Object.assign({}, state.PLAYER_TWO)
+        [action.data.game.settings.me]: me,
+        [action.data.game.settings.opponent]: opponent
       });
     }
     case types.DRAW_CARD_SUCCESS: {
-      let player = Object.assign({}, state[action.data.player.id], {
-        hand: [...state[action.data.player.id].hand, action.data.card]
+      let player = Object.assign({}, state[action.data.player], {
+        hand: [...state[action.data.player].hand, action.data.card]
       });
       return Object.assign({}, state, {
         [player.id]: player
