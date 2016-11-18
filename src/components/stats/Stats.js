@@ -1,16 +1,17 @@
 import React, {PropTypes} from 'react';
 import Stat from './Stat';
 
-const Stats = ({players}) => {
+const Stats = ({me, opponent}) => {
   return (
     <div className="stats">
-      <Stat label="Your CP" value={players.PLAYER_ONE.cp.amount + " [" + players.PLAYER_ONE.cp.elements.join(", ") + "]"} />
+      <Stat label="Your CP" value={me.cp.amount + " [" + me.cp.elements.join(", ") + "]"} />
     </div>
   );
 };
 
 Stats.propTypes = {
-  players: PropTypes.object.isRequired,
+  me: PropTypes.object.isRequired,
+  opponent: PropTypes.object.isRequired
 };
 
 export default Stats;

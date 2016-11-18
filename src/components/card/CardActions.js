@@ -71,6 +71,7 @@ CardActions.propTypes = {
   player: PropTypes.object.isRequired,
   card: PropTypes.object.isRequired,
   hand: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 // ownProps is a reference to the component's own properties

@@ -18,20 +18,20 @@ class GamePage extends React.Component {
     let field = this.props.field,
         players = this.props.players,
         actions = this.props.actions,
-        game = this.props.game,
-        me = this.props.game.me,
-        opponent = this.props.game.opponent;
+        settings = this.props.settings,
+        me = this.props.settings.me,
+        opponent = this.props.settings.opponent;
 
     return (
       <div>
-        <Stats players={players} />
+        <Stats me={players[me]} opponent={players[opponent]} />
         <div className="opponent">
           <FieldPage field={field[opponent]} player={players[opponent]} viewCard={actions.viewCard} />
         </div>
         <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
         <Hand cards={players[me].hand} viewCard={actions.viewCard} />
-        {game.viewingCard &&
-          <ActiveCard player={players[me]} card={game.viewingCard} hand={players[me].hand} closeCard={actions.closeCard}
+        {settings.viewingCard &&
+          <ActiveCard player={players[me]} card={settings.viewingCard} hand={players[me].hand} closeCard={actions.closeCard}
             playCard={actions.playCard} discardCard={actions.discardCard}
           />
         }
@@ -43,7 +43,7 @@ class GamePage extends React.Component {
 GamePage.propTypes = {
   field: PropTypes.object.isRequired,
   players: PropTypes.object.isRequired,
-  game: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
@@ -53,7 +53,7 @@ function mapStateToProps(state) {
   return {
     field: state.field,
     players: state.players,
-    game: state.game,
+    settings: state.settings,
   };
 }
 

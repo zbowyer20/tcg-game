@@ -4,8 +4,8 @@ import initialState from './initialState';
 
 export default function fieldReducer(state = initialState.field, action) {
   switch(action.type) {
-    case types.LOAD_GAME_SUCCESS: {
-      return action.game.field;
+    case types.START_GAME: {
+      return action.data.game.field;
     }
     case types.PLAY_CARD: {
       let field = Object.assign({}, state.PLAYER_ONE, {

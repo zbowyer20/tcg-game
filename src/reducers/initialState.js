@@ -18,22 +18,22 @@ export default {
   players: {
     "PLAYER_ONE": {
       id: "PLAYER_ONE",
-      hand: [],
       cp: {
         amount: 0,
         elements: []
-      }
+      },
+      hand: [],
     },
     "PLAYER_TWO": {
       id: "PLAYER_TWO",
-      hand: 0,
       cp: {
         amount: 0,
         elements: []
-      }
+      },
+      hand: [],
     }
   },
-  game: {
+  settings: {
     viewingCard: null,
     me: "PLAYER_ONE",
     opponent: "PLAYER_TWO"
