@@ -7,4 +7,8 @@ export default function (store) {
   socket.on('init', function(data) {
     store.dispatch(actions.startGame(data));
   });
+
+  socket.on('endGame', function() {
+    store.dispatch(actions.endGame());
+  });
 }

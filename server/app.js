@@ -34,6 +34,7 @@ io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
     delete SOCKET_LIST[socket.id];
     game.removePlayer(socket.id);
+    game.end(SOCKET_LIST);
   })
 });
 

@@ -9,6 +9,10 @@ export function startGame(data) {
   return {type: types.START_GAME, data};
 }
 
+export function endGame() {
+  return {type: types.END_GAME};
+}
+
 export function loadGame() {
   // return dispatch => {
   //   return GameApi.getGame().then(game => {

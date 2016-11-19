@@ -9,6 +9,9 @@ export default function gameReducer(state = initialState.settings, action) {
         opponent: action.data.game.settings.opponent
       });
     }
+    case types.END_GAME: {
+      return initialState.settings;
+    }
     case types.VIEW_CARD: {
       return Object.assign({}, state, {
         viewingCard: action.card

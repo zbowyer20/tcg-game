@@ -8,3 +8,4 @@ export const ACTIVATE_CARD = 'ACTIVATE_CARD';
 export const DISCARD_CARD = 'DISCARD_CARD';
 export const SET_CP = 'SET_CP';
 export const START_GAME = 'START_GAME';
+export const END_GAME = 'END_GAME';

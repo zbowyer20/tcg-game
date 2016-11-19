@@ -15,6 +15,9 @@ export default function playersReducer(state = initialState.players, action) {
         [action.data.game.settings.opponent]: opponent
       });
     }
+    case types.END_GAME: {
+      return initialState.players;
+    }
     case types.DRAW_CARD_SUCCESS: {
       let player = Object.assign({}, state[action.data.player], {
         hand: [...state[action.data.player].hand, action.data.card]

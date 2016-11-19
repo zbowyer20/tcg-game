@@ -4,18 +4,19 @@ var Field = require('../field/Field');
 var Player = require('../player/Player');
 
 function Game() {
-  var self = {
-    field: Field(),
-    players: Player.list,
-    settings: {
+  var self = {}
+
+  function setup() {
+    self.field = Field();
+    self.players = Player.list,
+    self.settings = {
       me: "PLAYER_ONE",
       opponent: "PLAYER_TWO"
-    }
+    };
   }
 
   self.addPlayer = function(id) {
     Player.list[id] = Player(id);
-    self.field.addPlayer(id);
   }
 
   self.removePlayer = function(id) {
@@ -32,8 +33,15 @@ function Game() {
     return Object.keys(self.players).length == 2;
   }
 
+  function initializeField() {
+    for (var id in self.players) {
+      self.field.addPlayer(id);
+    }
+  }
+
   self.initialize = function(socketList) {
     if (ready()) {
+      initializeField();
       for (var id in Player.list) {
         let configuredGame = Object.assign({}, self, {
           settings: Player.buildPack(id)
@@ -45,6 +53,14 @@ function Game() {
     }
   }
 
+  self.end = function(socketList) {
+    setup();
+    for (var id in Player.list) {
+      socketList[id].emit('endGame');
+    }
+  }
+
+  setup();
   return self;
 }
 
