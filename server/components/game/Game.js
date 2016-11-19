@@ -53,6 +53,31 @@ function Game() {
     }
   }
 
+  function shouldSendData(id, data, options) {
+    if (options.otherPlayers) {
+      return id != data.id
+    };
+    return true;
+  }
+
+  function getData(options) {
+    if (options.type == 'opponent') {
+      return Player.list[options.id].getPublicPack();
+    }
+    return null;
+  }
+
+  self.sendData = function(socketList, options) {
+    let data = getData(options);
+    if (data) {
+      for (var id in Player.list) {
+        if (shouldSendData(id, data, options)) {
+          socketList[id].emit(options.type, data);
+        }
+      }
+    }
+  }
+
   self.end = function(socketList) {
     setup();
     for (var id in Player.list) {

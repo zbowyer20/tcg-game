@@ -9,6 +9,10 @@ export function startGame(data) {
   return {type: types.START_GAME, data};
 }
 
+export function updateOpponent(data) {
+  return {type: types.UPDATE_OPPONENT, data};
+}
+
 export function endGame() {
   return {type: types.END_GAME};
 }

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import Card from '../card/Card';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import HandCard from '../card/HandCard';
 
 const Hand = ({cards, viewCard}) => {
   return (
@@ -9,7 +9,7 @@ const Hand = ({cards, viewCard}) => {
           transitionEnterTimeout = {200}
           transitionLeaveTimeout = {200} >
         {cards.map(card =>
-          <Card key={card.id} card={card} viewCard={viewCard} />
+          <HandCard key={card.id} card={card} viewCard={viewCard} />
         )}
       </ReactCSSTransitionGroup>
     </div>
@@ -18,7 +18,7 @@ const Hand = ({cards, viewCard}) => {
 
 Hand.propTypes = {
   cards: PropTypes.array.isRequired,
-  viewCard: PropTypes.func.isRequired
+  viewCard: PropTypes.func
 };
 
 export default Hand;

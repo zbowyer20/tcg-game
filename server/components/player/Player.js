@@ -1,6 +1,9 @@
+'use strict';
+var shortid = require('shortid');
+
 function Player(id) {
   var self = {
-    id: null,
+    id: id,
     hand: [],
     cp: {
       amount: 0,
@@ -10,6 +13,21 @@ function Player(id) {
 
   self.addCard = function(card) {
     self.hand.push(card);
+  }
+
+  function getPublicHand() {
+    return self.hand.map(card => {
+      return {id: shortid.generate()}
+    });
+  }
+
+  self.getPublicPack = function() {
+    let hand = getPublicHand();
+    return {
+      id: self.id,
+      hand: getPublicHand(),
+      cp: self.cp
+    };
   }
 
   return self;

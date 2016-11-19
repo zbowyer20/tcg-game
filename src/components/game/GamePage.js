@@ -27,6 +27,7 @@ class GamePage extends React.Component {
         <Stats me={players[me]} opponent={players[opponent]} />
         <div className="opponent">
           <FieldPage field={field[opponent]} player={players[opponent]} viewCard={actions.viewCard} />
+          <Hand cards={players[opponent].hand} />
         </div>
         <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
         <Hand cards={players[me].hand} viewCard={actions.viewCard} />

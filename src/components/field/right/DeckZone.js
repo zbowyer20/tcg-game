@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import DeckCard from '../../card/DeckCard';
+import UnknownCard from '../../card/UnknownCard';
 
 const DeckZone = ({player, height, drawCard}) => {
   function handleDrawCard(player) {
@@ -10,7 +10,7 @@ const DeckZone = ({player, height, drawCard}) => {
 
   return (
     <div className="deckZone" onClick={handleDrawCard.bind(this, player)}>
-      {height > 0 && <DeckCard/>}
+      {height > 0 && <UnknownCard/>}
     </div>
   );
 };

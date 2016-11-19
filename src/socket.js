@@ -8,6 +8,10 @@ export default function (store) {
     store.dispatch(actions.startGame(data));
   });
 
+  socket.on('opponent', function(data) {
+    store.dispatch(actions.updateOpponent(data));
+  });
+
   socket.on('endGame', function() {
     store.dispatch(actions.endGame());
   });

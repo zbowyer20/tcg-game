@@ -44,6 +44,11 @@ app.get('/api/field/draw/:id', function(req, res) {
     card: game.draw(player),
     player: player
   });
+  game.sendData(SOCKET_LIST, {
+    type: 'opponent',
+    id: player,
+    otherPlayers: true
+  });
 });
 
 module.exports = app;
