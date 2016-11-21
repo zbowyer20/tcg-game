@@ -79,6 +79,12 @@ app.get('/api/field/play/:playerId/:cardId', function(req, res) {
     player: playerId,
     cp: move.cp
   });
+
+  game.sendData(SOCKET_LIST, {
+    type: ['opponent', 'field'],
+    id: playerId,
+    otherPlayers: true
+  });
 });
 
 app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
@@ -89,6 +95,12 @@ app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
   res.send({
     card: card,
     player: playerId
+  });
+
+  game.sendData(SOCKET_LIST, {
+    type: ['field'],
+    id: playerId,
+    otherPlayers: true
   });
 })
 

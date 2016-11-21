@@ -19,9 +19,9 @@ export default function playersReducer(state = initialState.players, action) {
       return initialState.players;
     }
     case types.UPDATE_OPPONENT: {
-      let opponent = Object.assign({}, state[action.data.id], {
-        hand: action.data.hand,
-        cp: action.data.cp
+      let opponent = Object.assign({}, state[action.data.opponent.id], {
+        hand: action.data.opponent.hand,
+        cp: action.data.opponent.cp
       });
       return Object.assign({}, state, {
         [opponent.id]: opponent
