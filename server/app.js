@@ -39,33 +39,27 @@ io.sockets.on('connection', function(socket) {
 });
 
 app.get('/api/field/draw/:id', function(req, res) {
-  let player = req.params.id;
+  let playerId = req.params.id;
   res.send({
-    card: game.draw(player),
-    player: player
+    card: game.draw(playerId),
+    player: playerId
   });
-  game.sendData(SOCKET_LIST, {
-    type: ['opponent'],
-    id: player,
-    otherPlayers: true
-  });
+  game.emitData(SOCKET_LIST, playerId, {opponent: true});
 });
 
 app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
   let playerId = req.params.playerId,
       cardId = req.params.cardId,
       data = game.discard(playerId, cardId);
+
   res.send({
     player: playerId,
     card: data.card,
     cp: data.cp,
     to: "break"
   });
-  game.sendData(SOCKET_LIST, {
-    type: ['opponent', 'field'],
-    id: playerId,
-    otherPlayers: true
-  });
+
+  game.emitData(SOCKET_LIST, playerId, {opponent: true, field: true});
 });
 
 app.get('/api/field/play/:playerId/:cardId', function(req, res) {
@@ -80,11 +74,7 @@ app.get('/api/field/play/:playerId/:cardId', function(req, res) {
     cp: move.cp
   });
 
-  game.sendData(SOCKET_LIST, {
-    type: ['opponent', 'field'],
-    id: playerId,
-    otherPlayers: true
-  });
+  game.emitData(SOCKET_LIST, playerId, {opponent: true, field: true});
 });
 
 app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
@@ -97,11 +87,7 @@ app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
     player: playerId
   });
 
-  game.sendData(SOCKET_LIST, {
-    type: ['field'],
-    id: playerId,
-    otherPlayers: true
-  });
-})
+  game.emitData(SOCKET_LIST, playerId, {field: true});
+});
 
 module.exports = app;

@@ -91,35 +91,30 @@ function Game() {
     }
   }
 
-  function shouldSendData(id, data, options) {
-    if (options.otherPlayers) {
-      return id != options.id
-    };
-    return true;
-  }
-
-  function getData(options) {
+  function getData(playerId, options) {
     let data = {};
-    if (options.type.indexOf('opponent') > -1) {
-      data.opponent = Player.list[options.id].getPublicPack();
-    }
-    if (options.type.indexOf('field') > -1) {
+    if (options.field) {
       data.field = self.field.getPack(Player.list);
+    }
+    if (options.opponent) {
+      data.opponent = Player.list[playerId].getPublicPack();
     }
     return data;
   }
 
-  self.sendData = function(socketList, options) {
-    let data = getData(options);
+  function emit(socketList, playerId, data) {
     if (data) {
       for (var id in Player.list) {
-        if (shouldSendData(id, data, options)) {
-          for (var index in options.type) {
-            socketList[id].emit(options.type[index], data);
-          }
+        if (id != playerId) {
+          socketList[id].emit('gameUpdate', data);
         }
       }
     }
+  }
+
+  self.emitData = function(socketList, playerId, options) {
+    let data = getData(playerId, options);
+    emit(socketList, playerId, data);
   }
 
   self.end = function(socketList) {
