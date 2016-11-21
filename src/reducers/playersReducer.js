@@ -37,7 +37,7 @@ export default function playersReducer(state = initialState.players, action) {
     }
     case types.REMOVE_CARD_FROM_HAND: {
       let hand = state[action.move.player].hand.filter(card => {
-        return card.id !== action.move.card
+        return card.id !== action.move.card.id
       });
       let player = Object.assign({}, state[action.move.player], {
         hand: hand
@@ -48,7 +48,7 @@ export default function playersReducer(state = initialState.players, action) {
     }
     case types.SET_CP: {
       let player = Object.assign({}, state[action.move.player], {
-        cp: action.move.data.cp
+        cp: action.move.cp
       });
       return Object.assign({}, state, {
         [player.id]: player

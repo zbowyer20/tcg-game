@@ -19,6 +19,12 @@ function Game() {
     Player.list[id] = Player(id);
   }
 
+  self.getPlayer = function(id) {
+    return self.players.find(player => {
+      return player.id == id;
+    });
+  }
+
   self.removePlayer = function(id) {
     delete Player.list[id];
   }
@@ -38,6 +44,19 @@ function Game() {
       "card": card,
       "cp": player.updateCP(2, card.element),
       "break": self.field.addCard(playerId, card, "break")
+    };
+  }
+
+  self.playCard = function(playerId, cardId) {
+    let player = Player.list[playerId],
+        card = player.playCard(cardId);
+
+    self.field.addCard(playerId, card, card.type);
+
+    return {
+      "player": playerId,
+      "card": card,
+      "cp": player.resetCP()
     };
   }
 

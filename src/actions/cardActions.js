@@ -24,15 +24,28 @@ export function setCP(move) {
 
 export function playCard(player, card) {
   return dispatch => {
-    return GameApi.playCard(player, card).then(move => {
+    let url = 'http://localhost:3535/api/field/play/' + player.id + '/' + card.id;
+    fetch(url).then(response => {
+      return response.json();
+    }).then(json => {
       dispatch(closeCard());
-      dispatch(removeCardFromHand(move));
-      dispatch(setCP(move));
-      dispatch(playCardSuccess(move));
+      dispatch(removeCardFromHand(json));
+      dispatch(setCP(json));
+      dispatch(playCardSuccess(json));
     }).catch(error => {
       throw(error);
     });
   };
+  // return dispatch => {
+  //   return GameApi.playCard(player, card).then(move => {
+  //     dispatch(closeCard());
+  //     dispatch(removeCardFromHand(move));
+  //     dispatch(setCP(move));
+  //     dispatch(playCardSuccess(move));
+  //   }).catch(error => {
+  //     throw(error);
+  //   });
+  // };
 }
 
 export function activateCard(player, card) {

@@ -51,14 +51,29 @@ app.get('/api/field/draw/:id', function(req, res) {
   });
 });
 
-app.get('/api/field/discard/:player/:card', function(req, res) {
-  let player = req.params.player,
-      card = req.params.card;
+app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
+  let playerId = req.params.playerId,
+      cardId = req.params.cardId,
+      data = game.discard(playerId, cardId);
   res.send({
-    player: player,
-    card: card,
-    data: game.discard(player, card)
+    player: playerId,
+    card: data.card,
+    cp: data.cp,
+    to: "break"
   });
-})
+});
+
+app.get('/api/field/play/:playerId/:cardId', function(req, res) {
+  let playerId = req.params.playerId,
+      cardId = req.params.cardId,
+      move = game.playCard(playerId, cardId);
+
+  res.send({
+    card: move.card,
+    to: move.card.type,
+    player: playerId,
+    cp: move.cp
+  });
+});
 
 module.exports = app;

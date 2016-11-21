@@ -5,10 +5,6 @@ function Player(id) {
   var self = {
     id: id,
     hand: [],
-    cp: {
-      amount: 0,
-      elements: []
-    }
   }
 
   self.addCard = function(card) {
@@ -19,20 +15,41 @@ function Player(id) {
     return self.hand;
   }
 
+  function getCardFromHand(id) {
+    return self.hand.find(card => {
+      return card.id == id;
+    });
+  }
+
   self.removeCard = function(id) {
     let discard = self.hand.find((card) => {
       return card.id == id;
     });
-    delete self.hand.filter(card => {
+    self.hand = self.hand.filter(card => {
       return card.id != id;
     });
     return discard;
+  }
+
+  self.playCard = function(id) {
+    let card = getCardFromHand(id);
+    card.position = card.type == "forward" ? "active" : "dull";
+    self.removeCard(id);
+    return card;
   }
 
   function getUniqueArray(arr) {
     return arr.filter(function(item, pos, self) {
       return self.indexOf(item) == pos;
     });
+  }
+
+  self.resetCP = function() {
+    self.cp = {
+      amount: 0,
+      elements: []
+    };
+    return self.cp;
   }
 
   self.updateCP = function(amount, element) {
@@ -56,6 +73,8 @@ function Player(id) {
       cp: self.cp
     };
   }
+
+  self.cp = self.resetCP();
 
   return self;
 }

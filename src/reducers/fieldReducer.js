@@ -11,11 +11,11 @@ export default function fieldReducer(state = initialState.field, action) {
       return initialState.field;
     }
     case types.PLAY_CARD: {
-      let field = Object.assign({}, state.PLAYER_ONE, {
-        [action.move.to]: [...state.PLAYER_ONE[action.move.to], action.move.card]
+      let field = Object.assign({}, state[action.move.player], {
+        [action.move.to]: [...state[action.move.player][action.move.to], action.move.card]
       });
       return Object.assign({}, state, {
-        PLAYER_ONE: field
+        [action.move.player]: field
       });
     }
     case types.ACTIVATE_CARD: {
@@ -34,7 +34,7 @@ export default function fieldReducer(state = initialState.field, action) {
     }
     case types.DISCARD_CARD: {
       let cards = Object.assign({}, state[action.move.player], {
-        break: [...state[action.move.player].break, action.move.data.card]
+        break: [...state[action.move.player].break, action.move.card]
       });
       return Object.assign({}, state, {
         [action.move.player]: cards
