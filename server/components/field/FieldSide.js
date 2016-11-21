@@ -32,6 +32,10 @@ function FieldSide() {
     return card;
   }
 
+  self.getPack = function() {
+    return self;
+  }
+
   return self;
 }
 

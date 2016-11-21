@@ -93,16 +93,20 @@ function Game() {
 
   function shouldSendData(id, data, options) {
     if (options.otherPlayers) {
-      return id != data.id
+      return id != options.id
     };
     return true;
   }
 
   function getData(options) {
-    if (options.type == 'opponent') {
-      return Player.list[options.id].getPublicPack();
+    let data = {};
+    if (options.type.indexOf('opponent') > -1) {
+      data.opponent = Player.list[options.id].getPublicPack();
     }
-    return null;
+    if (options.type.indexOf('field') > -1) {
+      data.field = self.field.getPack(Player.list);
+    }
+    return data;
   }
 
   self.sendData = function(socketList, options) {
@@ -110,7 +114,9 @@ function Game() {
     if (data) {
       for (var id in Player.list) {
         if (shouldSendData(id, data, options)) {
-          socketList[id].emit(options.type, data);
+          for (var index in options.type) {
+            socketList[id].emit(options.type[index], data);
+          }
         }
       }
     }

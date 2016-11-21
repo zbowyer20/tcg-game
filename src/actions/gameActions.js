@@ -13,6 +13,10 @@ export function updateOpponent(data) {
   return {type: types.UPDATE_OPPONENT, data};
 }
 
+export function updateField(data) {
+  return {type: types.UPDATE_FIELD, data};
+}
+
 export function endGame() {
   return {type: types.END_GAME};
 }

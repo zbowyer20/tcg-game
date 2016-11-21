@@ -19,6 +19,14 @@ function Field() {
     return self[playerId].dullCard(cardId);
   }
 
+  self.getPack = function(players) {
+    let pack = {};
+    Object.keys(players).forEach(playerId => {
+      pack[playerId] = self[playerId].getPack();
+    })
+    return pack;
+  }
+
   return self;
 }
 

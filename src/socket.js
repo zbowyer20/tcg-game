@@ -12,6 +12,10 @@ export default function (store) {
     store.dispatch(actions.updateOpponent(data));
   });
 
+  socket.on('field', function(data) {
+    store.dispatch(actions.updateField(data));
+  });
+
   socket.on('endGame', function() {
     store.dispatch(actions.endGame());
   });

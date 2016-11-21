@@ -45,7 +45,7 @@ app.get('/api/field/draw/:id', function(req, res) {
     player: player
   });
   game.sendData(SOCKET_LIST, {
-    type: 'opponent',
+    type: ['opponent'],
     id: player,
     otherPlayers: true
   });
@@ -60,6 +60,11 @@ app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
     card: data.card,
     cp: data.cp,
     to: "break"
+  });
+  game.sendData(SOCKET_LIST, {
+    type: ['opponent', 'field'],
+    id: playerId,
+    otherPlayers: true
   });
 });
 

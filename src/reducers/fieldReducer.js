@@ -9,6 +9,9 @@ export default function fieldReducer(state = initialState.field, action) {
     case types.END_GAME: {
       return initialState.field;
     }
+    case types.UPDATE_FIELD: {
+      return action.data.field;
+    }
     case types.PLAY_CARD: {
       let field = Object.assign({}, state[action.move.player], {
         [action.move.to]: [...state[action.move.player][action.move.to], action.move.card]
