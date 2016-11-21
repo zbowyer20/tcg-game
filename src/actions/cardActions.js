@@ -48,13 +48,24 @@ export function activateCard(player, card) {
 
 export function discardCard(player, card) {
   return dispatch => {
-    return GameApi.discardCard(player, card).then(move => {
+    let url = 'http://localhost:3535/api/field/discard/' + player.id + '/' + card.id;
+    fetch(url).then(response => {
+      return response.json();
+    }).then((json) => {
       dispatch(closeCard());
-      dispatch(removeCardFromHand(move));
-      dispatch(discardCardSuccess(move));
-      dispatch(setCP(move));
-    }).catch(error => {
-      throw(error);
+      dispatch(removeCardFromHand(json));
+      dispatch(discardCardSuccess(json));
+      dispatch(setCP(json));
     });
   };
+  // return dispatch => {
+  //   return GameApi.discardCard(player, card).then(move => {
+  //     dispatch(closeCard());
+  //     dispatch(removeCardFromHand(move));
+  //     dispatch(discardCardSuccess(move));
+  //     dispatch(setCP(move));
+  //   }).catch(error => {
+  //     throw(error);
+  //   });
+  // };
 }

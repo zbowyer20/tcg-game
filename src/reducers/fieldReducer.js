@@ -33,11 +33,11 @@ export default function fieldReducer(state = initialState.field, action) {
       });
     }
     case types.DISCARD_CARD: {
-      let cards = Object.assign({}, state.PLAYER_ONE, {
-        break: [...state.PLAYER_ONE.break, action.move.card]
+      let cards = Object.assign({}, state[action.move.player], {
+        break: [...state[action.move.player].break, action.move.data.card]
       });
       return Object.assign({}, state, {
-        PLAYER_ONE: cards
+        [action.move.player]: cards
       });
     }
     default: {

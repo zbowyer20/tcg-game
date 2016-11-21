@@ -29,6 +29,18 @@ function Game() {
     return card;
   }
 
+  self.discard = function(playerId, cardId) {
+    let player = Player.list[playerId],
+        card = player.removeCard(cardId);
+
+    return {
+      "player": playerId,
+      "card": card,
+      "cp": player.updateCP(2, card.element),
+      "break": self.field.addCard(playerId, card, "break")
+    };
+  }
+
   function ready() {
     return Object.keys(self.players).length == 2;
   }

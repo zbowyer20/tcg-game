@@ -11,6 +11,10 @@ function Field() {
     return self[id].draw();
   }
 
+  self.addCard = function(playerId, card, zone) {
+    self[playerId].addCard(card, zone);
+  }
+
   return self;
 }
 

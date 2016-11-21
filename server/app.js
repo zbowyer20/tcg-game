@@ -51,4 +51,14 @@ app.get('/api/field/draw/:id', function(req, res) {
   });
 });
 
+app.get('/api/field/discard/:player/:card', function(req, res) {
+  let player = req.params.player,
+      card = req.params.card;
+  res.send({
+    player: player,
+    card: card,
+    data: game.discard(player, card)
+  });
+})
+
 module.exports = app;

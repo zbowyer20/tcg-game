@@ -15,6 +15,11 @@ function FieldSide() {
     self.deck--;
   }
 
+  self.addCard = function(card, zone) {
+    self[zone].push(card);
+    return self[zone];
+  }
+
   return self;
 }
 
