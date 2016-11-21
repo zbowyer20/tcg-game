@@ -76,4 +76,15 @@ app.get('/api/field/play/:playerId/:cardId', function(req, res) {
   });
 });
 
+app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
+  let playerId = req.params.playerId,
+      cardId = req.params.cardId,
+      card = game.dullCard(playerId, cardId);
+
+  res.send({
+    card: card,
+    player: playerId
+  });
+})
+
 module.exports = app;

@@ -8,6 +8,10 @@ function Card(data) {
     src: data.src
   }
 
+  self.setPosition = function(position) {
+    self.position = position;
+  }
+
   return self;
 }
 

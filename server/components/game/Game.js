@@ -60,6 +60,13 @@ function Game() {
     };
   }
 
+  self.dullCard = function(playerId, cardId) {
+    let player = Player.list[playerId],
+        card = self.field.dullCard(playerId, cardId);
+
+    return card;
+  }
+
   function ready() {
     return Object.keys(self.players).length == 2;
   }

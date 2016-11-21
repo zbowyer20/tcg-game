@@ -10,8 +10,8 @@ export function removeCardFromHand(move) {
   return {type: types.REMOVE_CARD_FROM_HAND, move};
 }
 
-export function activateCardSuccess(move) {
-  return {type: types.ACTIVATE_CARD, move};
+export function dullCardSuccess(move) {
+  return {type: types.DULL_CARD, move};
 }
 
 export function discardCardSuccess(move) {
@@ -48,15 +48,26 @@ export function playCard(player, card) {
   // };
 }
 
-export function activateCard(player, card) {
+export function dullCard(player, card) {
   return dispatch => {
-    return GameApi.activateCard(card).then(move => {
+    let url = 'http://localhost:3535/api/field/dull/' + player.id + '/' + card.id;
+    fetch(url).then(response => {
+      return response.json();
+    }).then(json => {
       dispatch(closeCard());
-      dispatch(activateCardSuccess(move));
+      dispatch(dullCardSuccess(json));
     }).catch(error => {
       throw(error);
     });
   };
+  // return dispatch => {
+  //   return GameApi.activateCard(card).then(move => {
+  //     dispatch(closeCard());
+  //     dispatch(activateCardSuccess(move));
+  //   }).catch(error => {
+  //     throw(error);
+  //   });
+  // };
 }
 
 export function discardCard(player, card) {

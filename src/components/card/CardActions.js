@@ -42,10 +42,10 @@ class CardActions extends React.Component {
     return card.position == terms.ACTIVE_STATE;
   }
 
-  activate() {
+  dull() {
     return {
-      name: 'Activate',
-      action: this.props.actions.activateCard
+      name: 'Dull',
+      action: this.props.actions.dullCard
     };
   }
 
@@ -60,7 +60,7 @@ class CardActions extends React.Component {
     return (
       <div className="cardActions">
         {this.playable(this.props.player,this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.play()} />}
-        {this.active(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.activate()} />}
+        {this.active(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.dull()} />}
         {this.inHand(this.props.card) && <CardAction player={this.props.player} card={this.props.card} action={this.discard()} />}
       </div>
     );

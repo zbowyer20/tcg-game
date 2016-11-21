@@ -33,7 +33,7 @@ function Player(id) {
 
   self.playCard = function(id) {
     let card = getCardFromHand(id);
-    card.position = card.type == "forward" ? "active" : "dull";
+    card.setPosition(card.type == "forward" ? "active" : "dull");
     self.removeCard(id);
     return card;
   }

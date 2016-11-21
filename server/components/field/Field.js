@@ -15,6 +15,10 @@ function Field() {
     self[playerId].addCard(card, zone);
   }
 
+  self.dullCard = function(playerId, cardId) {
+    return self[playerId].dullCard(cardId);
+  }
+
   return self;
 }
 
