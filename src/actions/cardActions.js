@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import GameApi from '../api/mockGameApi';
 import {closeCard} from './fieldActions';
 
 export function playCardSuccess(move) {
@@ -36,16 +35,6 @@ export function playCard(player, card) {
       throw(error);
     });
   };
-  // return dispatch => {
-  //   return GameApi.playCard(player, card).then(move => {
-  //     dispatch(closeCard());
-  //     dispatch(removeCardFromHand(move));
-  //     dispatch(setCP(move));
-  //     dispatch(playCardSuccess(move));
-  //   }).catch(error => {
-  //     throw(error);
-  //   });
-  // };
 }
 
 export function dullCard(player, card) {
@@ -60,14 +49,6 @@ export function dullCard(player, card) {
       throw(error);
     });
   };
-  // return dispatch => {
-  //   return GameApi.activateCard(card).then(move => {
-  //     dispatch(closeCard());
-  //     dispatch(activateCardSuccess(move));
-  //   }).catch(error => {
-  //     throw(error);
-  //   });
-  // };
 }
 
 export function discardCard(player, card) {
@@ -82,14 +63,4 @@ export function discardCard(player, card) {
       dispatch(setCP(json));
     });
   };
-  // return dispatch => {
-  //   return GameApi.discardCard(player, card).then(move => {
-  //     dispatch(closeCard());
-  //     dispatch(removeCardFromHand(move));
-  //     dispatch(discardCardSuccess(move));
-  //     dispatch(setCP(move));
-  //   }).catch(error => {
-  //     throw(error);
-  //   });
-  // };
 }

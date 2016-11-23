@@ -10,7 +10,10 @@ export default function (store) {
 
   socket.on('gameUpdate', function(data) {
     if (data.opponent) {
-      store.dispatch(actions.updateOpponent(data.opponent));
+      store.dispatch(actions.updatePlayer(data.opponent));
+    }
+    if (data.self) {
+      store.dispatch(actions.updatePlayer(data.self));
     }
     if (data.field) {
       store.dispatch(actions.updateField(data.field));

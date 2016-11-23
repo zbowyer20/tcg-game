@@ -25,6 +25,10 @@ function Game() {
     });
   }
 
+  self.getPlayers = function() {
+    return self.players;
+  }
+
   self.removePlayer = function(id) {
     delete Player.list[id];
   }
@@ -77,9 +81,18 @@ function Game() {
     }
   }
 
+  function initializeGame() {
+    for (var i = 0; i < 5; i++) {
+      for (var id in self.players) {
+        self.draw(id);
+      }
+    }
+  }
+
   self.initialize = function(socketList) {
     if (ready()) {
       initializeField();
+      initializeGame();
       for (var id in Player.list) {
         let configuredGame = Object.assign({}, self, {
           settings: Player.buildPack(id)
@@ -88,6 +101,15 @@ function Game() {
           game: configuredGame
         });
       }
+      sendInitialData(socketList);
+    }
+  }
+
+
+  function sendInitialData(socketList) {
+    for (var id in self.getPlayers()) {
+      self.emitData(socketList, {opponent: true}, id);
+      self.emitData({[id]: socketList[id]}, {self: true}, id);
     }
   }
 
@@ -99,22 +121,31 @@ function Game() {
     if (options.opponent) {
       data.opponent = Player.list[playerId].getPublicPack();
     }
+    if (options.self) {
+      data.self = Player.list[playerId].getPack();
+    }
     return data;
   }
 
-  function emit(socketList, playerId, data) {
+  function shouldSendData(receiverId, playerId, options) {
+    let equalId = receiverId == playerId;
+    let ownData = typeof(options.self) != 'undefined';
+    return ownData == equalId;
+  }
+
+  function emit(socketList, playerId, data, options) {
     if (data) {
       for (var id in Player.list) {
-        if (id != playerId) {
+        if (shouldSendData(id, playerId, options)) {
           socketList[id].emit('gameUpdate', data);
         }
       }
     }
   }
 
-  self.emitData = function(socketList, playerId, options) {
+  self.emitData = function(socketList, options, playerId) {
     let data = getData(playerId, options);
-    emit(socketList, playerId, data);
+    emit(socketList, playerId, data, options);
   }
 
   self.end = function(socketList) {

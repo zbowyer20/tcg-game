@@ -74,6 +74,14 @@ function Player(id) {
     };
   }
 
+  self.getPack = function() {
+    return {
+      id: self.id,
+      hand: self.hand,
+      cp: self.cp
+    };
+  }
+
   self.cp = self.resetCP();
 
   return self;

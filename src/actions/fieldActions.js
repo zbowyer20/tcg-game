@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import FieldApi from '../api/mockFieldApi';
 
 export function drawCardSuccess(data) {
   return {type: types.DRAW_CARD_SUCCESS, data};

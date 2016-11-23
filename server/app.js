@@ -44,7 +44,7 @@ app.get('/api/field/draw/:id', function(req, res) {
     card: game.draw(playerId),
     player: playerId
   });
-  game.emitData(SOCKET_LIST, playerId, {opponent: true});
+  game.emitData(SOCKET_LIST, {opponent: true}, playerId);
 });
 
 app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
@@ -59,7 +59,7 @@ app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
     to: "break"
   });
 
-  game.emitData(SOCKET_LIST, playerId, {opponent: true, field: true});
+  game.emitData(SOCKET_LIST, {opponent: true, field: true}, playerId);
 });
 
 app.get('/api/field/play/:playerId/:cardId', function(req, res) {
@@ -74,7 +74,7 @@ app.get('/api/field/play/:playerId/:cardId', function(req, res) {
     cp: move.cp
   });
 
-  game.emitData(SOCKET_LIST, playerId, {opponent: true, field: true});
+  game.emitData(SOCKET_LIST, {opponent: true, field: true}, playerId);
 });
 
 app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
@@ -87,7 +87,7 @@ app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
     player: playerId
   });
 
-  game.emitData(SOCKET_LIST, playerId, {field: true});
+  game.emitData(SOCKET_LIST, {field: true}, playerId);
 });
 
 module.exports = app;

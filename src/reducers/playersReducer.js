@@ -18,13 +18,13 @@ export default function playersReducer(state = initialState.players, action) {
     case types.END_GAME: {
       return initialState.players;
     }
-    case types.UPDATE_OPPONENT: {
-      let opponent = Object.assign({}, state[action.data.id], {
+    case types.UPDATE_PLAYER: {
+      let player = Object.assign({}, state[action.data.id], {
         hand: action.data.hand,
         cp: action.data.cp
       });
       return Object.assign({}, state, {
-        [opponent.id]: opponent
+        [player.id]: player
       });
     }
     case types.DRAW_CARD_SUCCESS: {
@@ -37,7 +37,7 @@ export default function playersReducer(state = initialState.players, action) {
     }
     case types.REMOVE_CARD_FROM_HAND: {
       let hand = state[action.move.player].hand.filter(card => {
-        return card.id !== action.move.card.id
+        return card.id !== action.move.card.id;
       });
       let player = Object.assign({}, state[action.move.player], {
         hand: hand

@@ -8,6 +8,6 @@ export const DULL_CARD = 'DULL_CARD';
 export const DISCARD_CARD = 'DISCARD_CARD';
 export const SET_CP = 'SET_CP';
 export const START_GAME = 'START_GAME';
-export const UPDATE_OPPONENT = 'UPDATE_OPPONENT';
+export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 export const UPDATE_FIELD = 'UPDATE_FIELD';
 export const END_GAME = 'END_GAME';
