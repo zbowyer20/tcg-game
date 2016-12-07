@@ -136,3 +136,15 @@ body {
   transform: translateY(-100%);
   transition: all 200ms ease-in;
 }
+
+.splash {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform: translateY(40%);
+  background: yellow;
+  padding: 75px;
+  height: 100px;
+  text-align: center;
+  width: 100%;
+}

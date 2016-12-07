@@ -16,6 +16,10 @@ export function updateField(data) {
   return {type: types.UPDATE_FIELD, data};
 }
 
+export function cleanSplash() {
+  return {type: types.CLEAN_SPLASH};
+}
+
 export function endGame() {
   return {type: types.END_GAME};
 }

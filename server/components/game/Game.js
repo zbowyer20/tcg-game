@@ -12,7 +12,11 @@ function Game() {
     self.settings = {
       me: "PLAYER_ONE",
       opponent: "PLAYER_TWO"
-    };
+    },
+    self.phase = {
+      player: null,
+      type: null
+    }
   }
 
   self.addPlayer = function(id) {
@@ -37,6 +41,12 @@ function Game() {
     let card = self.field.draw(id);
     Player.list[id].addCard(card);
     return card;
+  }
+
+  self.drawCards = function(id, number) {
+    for (var i = 0; i < number; i++) {
+      self.draw(id);
+    }
   }
 
   self.discard = function(playerId, cardId) {
@@ -71,6 +81,15 @@ function Game() {
     return card;
   }
 
+  function startPhase() {
+    let starter = Object.keys(self.players)[Math.floor(Math.random() * 2)]
+    self.phase = {
+      player: starter,
+      type: "START_GAME",
+      splash: true
+    }
+  }
+
   function ready() {
     return Object.keys(self.players).length == 2;
   }
@@ -82,11 +101,10 @@ function Game() {
   }
 
   function initializeGame() {
-    for (var i = 0; i < 5; i++) {
-      for (var id in self.players) {
-        self.draw(id);
-      }
+    for (var id in self.players) {
+      self.drawCards(id, 5);
     }
+    startPhase();
   }
 
   self.initialize = function(socketList) {

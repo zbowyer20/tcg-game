@@ -36,6 +36,11 @@ export default {
   settings: {
     viewingCard: null,
     me: "PLAYER_ONE",
-    opponent: "PLAYER_TWO"
+    opponent: "PLAYER_TWO",
+    phase: {
+      player: null,
+      type: null,
+      splash: false
+    }
   }
 };

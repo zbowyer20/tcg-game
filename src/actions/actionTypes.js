@@ -10,4 +10,5 @@ export const SET_CP = 'SET_CP';
 export const START_GAME = 'START_GAME';
 export const UPDATE_PLAYER = 'UPDATE_PLAYER';
 export const UPDATE_FIELD = 'UPDATE_FIELD';
+export const CLEAN_SPLASH = 'CLEAN_SPLASH';
 export const END_GAME = 'END_GAME';

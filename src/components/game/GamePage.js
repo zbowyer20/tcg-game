@@ -8,6 +8,7 @@ import FieldPage from '../field/FieldPage';
 import Hand from '../hand/Hand';
 import ActiveCard from '../card/ActiveCard';
 import Stats from '../stats/Stats';
+import PhaseSplash from '../notification/PhaseSplash';
 
 class GamePage extends React.Component {
   constructor(props, context) {
@@ -31,6 +32,9 @@ class GamePage extends React.Component {
         </div>
         <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
         <Hand cards={players[me].hand} viewCard={actions.viewCard} />
+        {settings.phase.splash &&
+          <PhaseSplash player={players[settings.phase.player]} type={settings.phase.type} />
+        }
         {settings.viewingCard &&
           <ActiveCard player={players[me]} card={settings.viewingCard} hand={players[me].hand} closeCard={actions.closeCard}
             playCard={actions.playCard} discardCard={actions.discardCard}
