@@ -85,7 +85,7 @@ function Game() {
     let starter = Object.keys(self.players)[Math.floor(Math.random() * 2)]
     self.phase = {
       player: starter,
-      type: "START_GAME",
+      type: "PHASE_START_GAME",
       splash: true
     }
   }

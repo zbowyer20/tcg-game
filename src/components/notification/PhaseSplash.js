@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as gameActions from '../../actions/gameActions';
+/*eslint import/namespace: ['error', { allowComputed: true }]*/
+import * as gameConstants from '../../constants/gameConstants';
 
 class PhaseSplash extends React.Component {
   constructor(props, context) {
@@ -18,11 +20,12 @@ class PhaseSplash extends React.Component {
   render() {
     return (
       <div className="splash">
+        <div className="text--large">{gameConstants[this.props.type]}</div>
         <span>{this.props.player.id}</span>
       </div>
     );
   }
-};
+}
 
 PhaseSplash.propTypes = {
   player: PropTypes.object.isRequired,
