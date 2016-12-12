@@ -31,11 +31,15 @@ io.sockets.on('connection', function(socket) {
   // if game is ready, send players initial state of game
   game.initialize(SOCKET_LIST);
 
+  socket.on('ready', function() {
+    game.readyPlayer(socket.id);
+  });
+
   socket.on('disconnect', function() {
     delete SOCKET_LIST[socket.id];
     game.removePlayer(socket.id);
     game.end(SOCKET_LIST);
-  })
+  });
 });
 
 app.get('/api/field/draw/:id', function(req, res) {

@@ -6,6 +6,7 @@ export default function (store) {
 
   socket.on('init', function(data) {
     store.dispatch(actions.startGame(data));
+    socket.emit('ready');
   });
 
   socket.on('gameUpdate', function(data) {

@@ -2,9 +2,11 @@
 
 var Field = require('../field/Field');
 var Player = require('../player/Player');
+var Phases = require('../phases/Phases');
 
 function Game() {
-  var self = {}
+  var self = {};
+  var phases = Phases();
 
   function setup() {
     self.field = Field();
@@ -13,10 +15,11 @@ function Game() {
       me: "PLAYER_ONE",
       opponent: "PLAYER_TWO"
     },
-    self.phase = {
-      player: null,
-      type: null
-    }
+    //self.phase = {
+    //  player: null,
+    //  type: null
+    //}
+    self.phase = null;
   }
 
   self.addPlayer = function(id) {
@@ -35,18 +38,6 @@ function Game() {
 
   self.removePlayer = function(id) {
     delete Player.list[id];
-  }
-
-  self.draw = function(id) {
-    let card = self.field.draw(id);
-    Player.list[id].addCard(card);
-    return card;
-  }
-
-  self.drawCards = function(id, number) {
-    for (var i = 0; i < number; i++) {
-      self.draw(id);
-    }
   }
 
   self.discard = function(playerId, cardId) {
@@ -81,13 +72,26 @@ function Game() {
     return card;
   }
 
-  function startPhase() {
-    let starter = Object.keys(self.players)[Math.floor(Math.random() * 2)]
-    self.phase = {
-      player: starter,
-      type: "PHASE_START_GAME",
-      splash: true
-    }
+  function playersReady() {
+    return Object.keys(self.players).filter(id => {
+      return !self.players[id].ready
+    }).length == 0;
+  }
+
+  self.readyPlayer = function(playerId) {
+    self.players[playerId].ready = true;
+    if (playersReady()) next();
+  }
+
+  function next() {
+    phases.nextMove();
+  }
+
+  function start() {
+    let starterId = Object.keys(self.players)[Math.floor(Math.random() * 2)];
+    phases.start(starterId, self.players);
+    self.phase = phases.current().getPack();
+    phases.execute(self.field);
   }
 
   function ready() {
@@ -101,10 +105,10 @@ function Game() {
   }
 
   function initializeGame() {
-    for (var id in self.players) {
-      self.drawCards(id, 5);
-    }
-    startPhase();
+    // for (var id in self.players) {
+    //   self.drawCards(id, 5);
+    // }
+    start();
   }
 
   self.initialize = function(socketList) {
@@ -122,7 +126,6 @@ function Game() {
       sendInitialData(socketList);
     }
   }
-
 
   function sendInitialData(socketList) {
     for (var id in self.getPlayers()) {
