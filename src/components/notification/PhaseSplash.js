@@ -21,14 +21,16 @@ class PhaseSplash extends React.Component {
     return (
       <div className="splash">
         <div className="text--large">{gameConstants[this.props.type]}</div>
-        <span>{this.props.player.id}</span>
+        {this.props.players.map(player => {
+          return <span key={player.id}>{player.id} </span>;
+        })}
       </div>
     );
   }
 }
 
 PhaseSplash.propTypes = {
-  player: PropTypes.object.isRequired,
+  players: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired
 };
 

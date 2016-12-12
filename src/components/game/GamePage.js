@@ -23,6 +23,16 @@ class GamePage extends React.Component {
         me = this.props.settings.me,
         opponent = this.props.settings.opponent;
 
+    function filterPlayers(players, ids) {
+      let filteredPlayers = [];
+      for (var i = 0; i < ids.length; i++) {
+        let player = players[ids[i]];
+        if (player) filteredPlayers.push(player);
+      }
+
+      return filteredPlayers;
+    }
+
     return (
       <div>
         <Stats me={players[me]} opponent={players[opponent]} />
@@ -33,7 +43,7 @@ class GamePage extends React.Component {
         <FieldPage field={field[me]} player={players[me]} drawCard={actions.drawCard} viewCard={actions.viewCard}/>
         <Hand cards={players[me].hand} viewCard={actions.viewCard} />
         {settings.phase.splash &&
-          <PhaseSplash player={players[settings.phase.player]} type={settings.phase.type} />
+          <PhaseSplash players={filterPlayers(players, settings.phase.playerIds)} type={settings.phase.type} />
         }
         {settings.viewingCard &&
           <ActiveCard player={players[me]} card={settings.viewingCard} hand={players[me].hand} closeCard={actions.closeCard}

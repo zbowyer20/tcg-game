@@ -1,8 +1,8 @@
 var Moves = require('./Moves');
 
-function PhaseStartGame(playerId) {
+function PhaseStartGame(players) {
   let self = {
-    player: playerId,
+    players: players,
     type: "PHASE_START_GAME",
     splash: true,
     skippable: false
@@ -12,9 +12,9 @@ function PhaseStartGame(playerId) {
     self.moves.index = 0;
   }
 
-  self.setPlayer = function(id) {
+  self.setPlayers = function(players) {
     reset();
-    self.player = id;
+    self.players = players;
   }
 
   self.isSkippable = function() {
@@ -26,9 +26,11 @@ function PhaseStartGame(playerId) {
     return {
       optional: false,
       events: [{
-        fn: Moves.drawCards,
+        fn: Moves.doEventForPlayers,
         params: {
-          number: 5
+          number: 5,
+          fn: Moves.drawCards,
+          players: self.players
         }
       }]
     };
@@ -47,7 +49,7 @@ function PhaseStartGame(playerId) {
 
   self.getPack = function() {
     return {
-      player: self.player,
+      playerIds: Object.keys(self.players),
       type: self.type,
       splash: self.type,
       skippable: self.skippable

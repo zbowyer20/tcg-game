@@ -10,7 +10,9 @@ function Phases(players) {
     }
   };
 
-  self.phases.push(new PhaseStartGame());
+  function init(starterId, players) {
+    self.phases.push(new PhaseStartGame(players));
+  }
 
   self.setActivePlayer = function() {
     let temp = players.active;
@@ -19,14 +21,16 @@ function Phases(players) {
   }
 
   self.start = function(starterId, players) {
-    self.phases[self.i].setPlayer(starterId);
+    //self.phases[self.i].setPlayer(starterId);
     let inactiveId = Object.keys(players).filter(id => {
-      id != starterId
+      return id != starterId
     });
     self.players = {
       active: players[starterId],
       inactive: players[inactiveId]
     }
+
+    init(starterId, players);
     return self.phases[self.i];
   }
 
@@ -52,7 +56,9 @@ function Phases(players) {
   }
 
   function executeEvent(event, field) {
-    event.fn.bind(null, field, self.players.active, event.params)();
+    event.params.field = field;
+    event.params.players = [self.players.active, self.players.inactive];
+    event.fn.bind(null, event.params)();
   }
 
   self.execute = function(field) {
