@@ -3,6 +3,7 @@
 var Field = require('../field/Field');
 var Player = require('../player/Player');
 var Phases = require('../phases/Phases');
+var Sockets = require('../../Socket');
 
 function Game() {
   var self = {};
@@ -78,13 +79,25 @@ function Game() {
     }).length == 0;
   }
 
+  function unready() {
+    let ids = Object.keys(self.players);
+    for (var i = 0; i < ids.length; i++) {
+      self.players[ids[i]].ready = false;
+    }
+  }
+
   self.readyPlayer = function(playerId) {
     self.players[playerId].ready = true;
-    if (playersReady()) next();
+    if (playersReady()) {
+      unready();
+      next();
+    }
   }
 
   function next() {
-    phases.nextMove();
+    //phases.nextMove();
+    phases.execute(self.field);
+    sendPlayerData();
   }
 
   function start() {
@@ -119,18 +132,18 @@ function Game() {
         let configuredGame = Object.assign({}, self, {
           settings: Player.buildPack(id)
         })
-        socketList[id].emit('init', {
+        Sockets[id].emit('init', {
           game: configuredGame
         });
       }
-      sendInitialData(socketList);
+      sendPlayerData();
     }
   }
 
-  function sendInitialData(socketList) {
+  function sendPlayerData() {
     for (var id in self.getPlayers()) {
-      self.emitData(socketList, {opponent: true}, id);
-      self.emitData({[id]: socketList[id]}, {self: true}, id);
+      self.emitData({opponent: true}, id);
+      self.emitData({self: true}, id);
     }
   }
 
@@ -154,25 +167,25 @@ function Game() {
     return ownData == equalId;
   }
 
-  function emit(socketList, playerId, data, options) {
+  function emit(playerId, data, options) {
     if (data) {
       for (var id in Player.list) {
         if (shouldSendData(id, playerId, options)) {
-          socketList[id].emit('gameUpdate', data);
+          Sockets[id].emit('gameUpdate', data);
         }
       }
     }
   }
 
-  self.emitData = function(socketList, options, playerId) {
+  self.emitData = function(options, playerId) {
     let data = getData(playerId, options);
-    emit(socketList, playerId, data, options);
+    emit(playerId, data, options);
   }
 
-  self.end = function(socketList) {
+  self.end = function() {
     setup();
     for (var id in Player.list) {
-      socketList[id].emit('endGame');
+      Sockets[id].emit('endGame');
     }
   }
 

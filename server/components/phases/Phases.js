@@ -1,4 +1,6 @@
 var PhaseStartGame = require('./PhaseStartGame');
+var PhaseDraw = require('./PhaseDraw');
+var Socket = require('../../Socket');
 
 function Phases(players) {
   let self = {
@@ -12,6 +14,7 @@ function Phases(players) {
 
   function init(starterId, players) {
     self.phases.push(new PhaseStartGame(players));
+    self.phases.push(new PhaseDraw(players[starterId]))
   }
 
   self.setActivePlayer = function() {
@@ -52,7 +55,7 @@ function Phases(players) {
   }
 
   self.nextMove = function() {
-    return self.current().nextMove();
+    return self.current().nextMove() || self.next().nextMove();
   }
 
   function executeEvent(event, field) {
@@ -62,7 +65,7 @@ function Phases(players) {
   }
 
   self.execute = function(field) {
-    let segment = self.current().nextMove();
+    let segment = self.current().nextMove() || self.next().nextMove();
     if (segment) {
       if (!segment.optional) {
         for (var i = 0; i < segment.events.length; i++) {

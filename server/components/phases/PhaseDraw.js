@@ -1,9 +1,9 @@
 var Moves = require('./Moves');
 
-function PhaseStartGame(players) {
+function PhaseDraw(player) {
   let self = {
-    players: players,
-    type: "PHASE_START_GAME",
+    players: [player],
+    type: "PHASE_DRAW",
     splash: true,
     skippable: false
   }
@@ -12,9 +12,9 @@ function PhaseStartGame(players) {
     self.moves.index = 0;
   }
 
-  self.setPlayers = function(players) {
+  self.setPlayers = function(player) {
     reset();
-    self.players = players;
+    self.players = [player];
   }
 
   self.isSkippable = function() {
@@ -26,11 +26,9 @@ function PhaseStartGame(players) {
     return {
       optional: false,
       events: [{
-        fn: Moves.doEventForPlayers,
+        fn: Moves.draw,
         params: {
-          number: 1,
-          fn: Moves.drawCards,
-          players: self.players
+          player: player
         }
       }]
     };
@@ -44,6 +42,7 @@ function PhaseStartGame(players) {
   }
 
   self.nextMove = function() {
+    console.log("Drawing");
     return self.moves.events[self.moves.index++];
   }
 
@@ -59,4 +58,4 @@ function PhaseStartGame(players) {
   return self;
 }
 
-module.exports = PhaseStartGame;
+module.exports = PhaseDraw;
