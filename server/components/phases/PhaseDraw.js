@@ -2,9 +2,9 @@
 
 var Moves = require('./Moves');
 
-function PhaseDraw(player) {
+function PhaseDraw(players) {
   let self = {
-    players: [player],
+    players: players,
     type: "PHASE_DRAW",
     splash: true,
     skippable: false
@@ -26,9 +26,9 @@ function PhaseDraw(player) {
     };
   }
 
-  self.setPlayers = function(player) {
+  self.setPlayers = function(players) {
     reset();
-    self.players = [player];
+    self.players = players;
   }
 
   self.isSkippable = function() {
@@ -40,9 +40,10 @@ function PhaseDraw(player) {
     return {
       optional: false,
       events: [{
-        fn: Moves.draw,
+        fn: Moves.doEventForPlayers,
         params: {
-          player: player
+          players: players,
+          fn: Moves.draw
         }
       }]
     };
@@ -61,7 +62,7 @@ function PhaseDraw(player) {
 
   self.getPack = function() {
     return {
-      playerIds: [self.players[0].id],
+      playerIds: Object.keys(self.players),
       type: self.type,
       splash: self.type,
       skippable: self.skippable

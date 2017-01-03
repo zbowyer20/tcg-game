@@ -14,7 +14,9 @@ function Phases(players) {
 
   function init(starterId, players) {
     self.phases.push(new PhaseStartGame(players));
-    self.phases.push(new PhaseDraw(players[starterId]))
+    self.phases.push(new PhaseDraw({
+      [starterId]: players[starterId]
+    }));
   }
 
   self.setActivePlayer = function() {
