@@ -11,8 +11,8 @@ function drawCards(params) {
 }
 
 function doEventForPlayers(params) {
-  for (var i = 0; i < params.players.length; i++) {
-    params.player = params.players[i];
+  for (var id in params.players) {
+    params.player = params.players[id];
     params.fn.bind(null, params)();
   }
 }

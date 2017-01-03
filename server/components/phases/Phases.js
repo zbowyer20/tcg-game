@@ -79,7 +79,6 @@ function Phases(players) {
 
   function executeEvent(event, field) {
     event.params.field = field;
-    event.params.players = [self.players.active, self.players.inactive];
     event.fn.bind(null, event.params)();
   }
 

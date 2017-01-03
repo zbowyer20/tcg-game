@@ -42,7 +42,7 @@ function PhaseDraw(players) {
       events: [{
         fn: Moves.doEventForPlayers,
         params: {
-          players: players,
+          players: self.players,
           fn: Moves.draw
         }
       }]
