@@ -1,3 +1,5 @@
+'use strict;'
+
 var Moves = require('./Moves');
 
 function PhaseStartGame(players) {

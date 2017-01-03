@@ -19,9 +19,14 @@ export default function (store) {
     if (data.field) {
       store.dispatch(actions.updateField(data.field));
     }
+    if (data.phase) {
+      store.dispatch(actions.updatePhase(data.phase));
+    }
   });
 
   socket.on('endGame', function() {
     store.dispatch(actions.endGame());
   });
+
+  return socket;
 }

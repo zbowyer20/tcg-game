@@ -1,6 +1,6 @@
 var PhaseStartGame = require('./PhaseStartGame');
 var PhaseDraw = require('./PhaseDraw');
-var Socket = require('../../Socket');
+var Sockets = require('../../Socket');
 
 function Phases(players) {
   let self = {
@@ -55,7 +55,24 @@ function Phases(players) {
   }
 
   self.nextMove = function() {
-    return self.current().nextMove() || self.next().nextMove();
+    return new Promise((resolve) => {
+      let next = self.current().nextMove();
+      if (next) {
+        return resolve(next);
+      } else {
+        setTimeout(function() {
+          next = self.next().nextMove();
+          Sockets.send.phase({
+            phase: self.current().getPack(),
+            to: {
+              [self.players.active.id]: self.players.active,
+              [self.players.inactive.id]: self.players.inactive
+            }
+          });
+          return resolve(next);
+        }, 2500)
+      }
+    })
   }
 
   function executeEvent(event, field) {
@@ -65,14 +82,16 @@ function Phases(players) {
   }
 
   self.execute = function(field) {
-    let segment = self.current().nextMove() || self.next().nextMove();
-    if (segment) {
-      if (!segment.optional) {
-        for (var i = 0; i < segment.events.length; i++) {
-          executeEvent(segment.events[i], field);
+    return new Promise((resolve) => {
+      self.nextMove().then(segment => {
+        if (!segment.optional) {
+          for (var i = 0; i < segment.events.length; i++) {
+            executeEvent(segment.events[i], field);
+          }
         }
-      }
-    }
+        return resolve();
+      });
+    });
   }
 
   return self;

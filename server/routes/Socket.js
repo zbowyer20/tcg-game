@@ -5,19 +5,19 @@ function Socket(server, app, game) {
 
   io.sockets.on('connection', function(socket) {
     console.log("Got new connection from: " + socket.id);
-    Sockets[socket.id] = socket;
-    game.addPlayer(socket.id);
+    Sockets.list[socket.id] = socket;
+    game.players.add(socket.id);
     // if game is ready, send players initial state of game
-    game.initialize(Sockets);
+    game.initialize(Sockets.list);
 
     socket.on('ready', function() {
-      game.readyPlayer(socket.id);
+      game.players.ready(socket.id);
     });
 
     socket.on('disconnect', function() {
-      delete Sockets[socket.id];
-      game.removePlayer(socket.id);
-      game.end(Sockets);
+      delete Sockets.list[socket.id];
+      game.players.remove(socket.id);
+      game.end(Sockets.list);
     });
   });
 
@@ -27,7 +27,7 @@ function Socket(server, app, game) {
       card: game.draw(playerId),
       player: playerId
     });
-    game.emitData(Sockets, {opponent: true}, playerId);
+    game.emitData(Sockets.list, {opponent: true}, playerId);
   });
 
   app.get('/api/field/discard/:playerId/:cardId', function(req, res) {
@@ -42,7 +42,7 @@ function Socket(server, app, game) {
       to: "break"
     });
 
-    game.emitData(Sockets, {opponent: true, field: true}, playerId);
+    game.emitData(Sockets.list, {opponent: true, field: true}, playerId);
   });
 
   app.get('/api/field/play/:playerId/:cardId', function(req, res) {
@@ -57,7 +57,7 @@ function Socket(server, app, game) {
       cp: move.cp
     });
 
-    game.emitData(Sockets, {opponent: true, field: true}, playerId);
+    game.emitData(Sockets.list, {opponent: true, field: true}, playerId);
   });
 
   app.get('/api/field/dull/:playerId/:cardId', function(req, res) {
@@ -70,7 +70,7 @@ function Socket(server, app, game) {
       player: playerId
     });
 
-    game.emitData(Sockets, {field: true}, playerId);
+    game.emitData(Sockets.list, {field: true}, playerId);
   });
 }
 

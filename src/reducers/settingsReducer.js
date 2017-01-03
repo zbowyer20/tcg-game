@@ -13,6 +13,11 @@ export default function gameReducer(state = initialState.settings, action) {
     case types.END_GAME: {
       return initialState.settings;
     }
+    case types.UPDATE_PHASE: {
+      return Object.assign({}, state, {
+        phase: action.data
+      });
+    }
     case types.CLEAN_SPLASH: {
       let phase = Object.assign({}, state.phase, {
         splash: false

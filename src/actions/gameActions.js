@@ -16,8 +16,16 @@ export function updateField(data) {
   return {type: types.UPDATE_FIELD, data};
 }
 
+export function updatePhase(data) {
+  return {type: types.UPDATE_PHASE, data};
+}
+
 export function cleanSplash() {
   return {type: types.CLEAN_SPLASH};
+}
+
+export function ready() {
+  return {type: types.READY};
 }
 
 export function endGame() {

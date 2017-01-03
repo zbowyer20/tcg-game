@@ -1,3 +1,5 @@
+'use strict';
+
 var Moves = require('./Moves');
 
 function PhaseDraw(player) {
@@ -10,6 +12,18 @@ function PhaseDraw(player) {
 
   function reset() {
     self.moves.index = 0;
+  }
+
+  self.pack = function() {
+    let ids = self.players.map(player => {
+      return player.id
+    });
+    return {
+      players: ids,
+      type: self.type,
+      splash: self.splash,
+      skippable: self.skippable
+    };
   }
 
   self.setPlayers = function(player) {
@@ -42,13 +56,12 @@ function PhaseDraw(player) {
   }
 
   self.nextMove = function() {
-    console.log("Drawing");
     return self.moves.events[self.moves.index++];
   }
 
   self.getPack = function() {
     return {
-      playerIds: Object.keys(self.players),
+      playerIds: [self.players[0].id],
       type: self.type,
       splash: self.type,
       skippable: self.skippable

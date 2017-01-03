@@ -7,6 +7,12 @@ function Field() {
     self[id] = FieldSide();
   }
 
+  self.initialize = function(players) {
+    for (var id in players) {
+      self.addPlayer(id);
+    }
+  }
+
   self.draw = function(id) {
     return self[id].draw();
   }

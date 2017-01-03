@@ -11,8 +11,7 @@ import initSocket from './socket';
 
 const store = configureStore();
 
-initSocket(store);
-//store.dispatch(loadAuthors());
+let socket = initSocket(store);
 
 render(
   // wrap entire application so it can be connected to the store
