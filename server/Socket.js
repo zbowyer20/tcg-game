@@ -5,7 +5,8 @@ var Sockets = {
 
   send: {
     initial: function(game) {
-      for (var pid in game.players.list) {
+      for (var i = 0; i < game.players.ids.length; i++) {
+        let pid = game.players.ids[i];
         let data = Object.assign({}, game, {
           settings: Player.buildPack(pid)
         });
@@ -16,15 +17,15 @@ var Sockets = {
     },
 
     player: function(game) {
-      let players = game.players.list;
-      for (var pid in players) {
-        Sockets.send.message(pid, game, {
+      let pids = game.players.ids;
+      for (var i = 0; i < pids.length; i++) {
+        Sockets.send.message(pids[i], game, {
           opponent: true,
-          to: players
+          to: pids
         });
-        Sockets.send.message(pid, game, {
+        Sockets.send.message(pids[i], game, {
           self: true,
-          to: players
+          to: pids
         });
       }
     },
@@ -56,16 +57,29 @@ var Sockets = {
       Sockets.send.data(pid, data, options)
     },
 
-    shouldSend: function(to, pid, options) {
-      let isSelf = to == pid;
+    /**
+    * Check if a piece of data should be sent to a receiver
+    * @param rid {String} The id of the possible receiver
+    * @param pid {String} The id of the player the data references
+    * @param options {Object}
+    */
+    shouldSend: function(rid, pid, options) {
+      let isSelf = rid == pid;
       let shouldSendToSelf = typeof(options.self) != 'undefined';
       return isSelf == shouldSendToSelf;
     },
 
+    /**
+    * Emit data.
+    * @param pid {String} The id of the player the data references
+    * @param data {Object} The data to be emitted
+    * @param options {Object}
+    */
     data: function(pid, data, options) {
-      for (var id in options.to) {
-        if (Sockets.send.shouldSend(id, pid, options)) {
-          Sockets.list[id].emit('gameUpdate', data);
+      for (var i = 0; i < options.to.length; i++) {
+        let rid = options.to[i];
+        if (Sockets.send.shouldSend(rid, pid, options)) {
+          Sockets.list[rid].emit('gameUpdate', data);
         }
       }
     }

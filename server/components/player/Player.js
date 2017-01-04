@@ -66,7 +66,6 @@ function Player(id) {
   }
 
   self.getPublicPack = function() {
-    let hand = getPublicHand();
     return {
       id: self.id,
       hand: getPublicHand(),

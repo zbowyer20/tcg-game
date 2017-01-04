@@ -14,7 +14,7 @@ function Game() {
     ids: [],
 
     setIds: function() {
-      self.players.id = Object.keys(self.players.list);
+      self.players.ids = Object.keys(self.players.list);
     },
 
     add: function(id) {

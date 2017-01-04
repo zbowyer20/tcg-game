@@ -66,10 +66,7 @@ function Phases(players) {
           next = self.next().nextMove();
           Sockets.send.phase({
             phase: self.current().getPack(),
-            to: {
-              [self.players.active.id]: self.players.active,
-              [self.players.inactive.id]: self.players.inactive
-            }
+            to: [self.players.active.id, self.players.inactive.id]
           });
           return resolve(next);
         }, 2500)
