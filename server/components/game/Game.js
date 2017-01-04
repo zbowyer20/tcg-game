@@ -11,31 +11,45 @@ function Game() {
 
   self.players = {
     list: {},
-    ids: [],
+    ids: {
+      list: [],
 
-    setIds: function() {
-      self.players.ids = Object.keys(self.players.list);
+      /**
+      * Set the list of ids of playing players
+      */
+      set: function() {
+        self.players.ids.list = Object.keys(self.players.list);
+      }
     },
 
-    add: function(id) {
-      self.players.list[id] = Player(id);
-      self.players.setIds();
+    /**
+    * Add a player to the game
+    * @param pid {String} The id of the player to add
+    */
+    add: function(pid) {
+      self.players.list[pid] = Player(pid);
+      self.players.ids.set();
     },
 
-    get: function(id) {
+    /**
+    * Get a playing player by their id
+    * @param pid {String} the id of the player to get
+    * @returns {Player} the player, or undefined if they are not found
+    */
+    get: function(pid) {
       return self.players.find(player => {
-        return player.id == id;
+        return player.id == pid;
       })
     },
 
-    remove: function(id) {
-      delete self.players.list[id];
-      self.players.setIds();
+    remove: function(pid) {
+      delete self.players.list[pid];
+      self.players.ids.set();
     },
 
-    /*
+    /**
     * Check whether all players are set as 'ready'.
-    * @returns true if all players are 'ready'
+    * @returns {true} if all players are 'ready'
     */
     areReady: function() {
       return Object.keys(self.players.list).filter(id => {
@@ -43,23 +57,24 @@ function Game() {
       }).length == 0;
     },
 
-    /*
+    /**
     * Set a player as 'ready'. If all players are ready, do the next event
+    * @param pid {String} the id of the player to set to ready
     */
-    ready: function(id) {
-      self.players.list[id].ready = true;
+    ready: function(pid) {
+      self.players.list[pid].ready = true;
       if (self.players.areReady()) {
         self.players.unready(); // reset players' ready status
         next();
       }
     },
 
-    /*
+    /**
     * Set all players' 'ready' status as false
     */
     unready: function() {
-      for (var id in self.players.list) {
-        self.players.list[id].ready = false;
+      for (var pid in self.players.list) {
+        self.players.list[pid].ready = false;
       }
     }
   };
@@ -74,51 +89,52 @@ function Game() {
     self.phase = null;
   }
 
-  /*
+  /**
   * Remove a card from the player's hand
-  * @param playerId ID of player
-  * @param cardId ID of card to remove
-  * @returns Object with card details, player's updated CP and break zone
+  * @param pid {String} id of player
+  * @param cid {String} id of card to remove
+  * @returns {Object} with card details, player's updated CP and break zone
   */
-  self.discard = function(playerId, cardId) {
-    let player = self.players.list[playerId],
-        card = player.hand.remove(cardId);
+  self.discard = function(pid, cid) {
+    let player = self.players.list[pid],
+        card = player.hand.remove(cid);
 
     return {
-      "player": playerId,
+      "player": pid,
       "card": card,
       "cp": player.cp.update(2, card.element),
-      "break": self.field.addCard(playerId, card, "break")
+      "break": self.field.addCard(pid, card, "break")
     };
   }
 
-  /*
+  /**
   * Play a card to the field from the player's hand
-  * @param playerId
-  * @param cardId
-  * @returns Object the player's ID, card details and player's new CP
+  * @param pid {String}
+  * @param cid {String}
+  * @returns {Object} the player's id, card details and player's new CP
   */
-  self.playCard = function(playerId, cardId) {
-    let player = self.players.list[playerId],
-        card = player.play(cardId);
+  self.playCard = function(pid, cid) {
+    let player = self.players.list[pid],
+        card = player.play(cid);
 
-    self.field.addCard(playerId, card, card.type);
+    self.field.addCard(pid, card, card.type);
+    player.cp.reset();
 
     return {
-      "player": playerId,
+      "player": pid,
       "card": card,
-      "cp": player.resetCP()
+      "cp": player.cp.pack()
     };
   }
 
-  self.dullCard = function(playerId, cardId) {
-    let player = self.players.list[playerId],
-        card = self.field.dullCard(playerId, cardId);
+  self.dullCard = function(pid, cid) {
+    let player = self.players.list[pid],
+        card = self.field.dullCard(pid, cid);
 
     return card;
   }
 
-  /*
+  /**
   * Execute the next part of the phase, or begin the next phase
   */
   function next() {
@@ -131,7 +147,7 @@ function Game() {
   * Get the ID of the player who will start the game
   */
   function getStartPid() {
-    return Object.keys(self.players.list)[Math.floor(Math.random() * 2)];
+    return self.players.ids.list[Math.floor(Math.random() * 2)];
   }
 
   /*

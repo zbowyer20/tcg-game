@@ -5,8 +5,8 @@ var Sockets = {
 
   send: {
     initial: function(game) {
-      for (var i = 0; i < game.players.ids.length; i++) {
-        let pid = game.players.ids[i];
+      for (var i = 0; i < game.players.ids.list.length; i++) {
+        let pid = game.players.ids.list[i];
         let data = Object.assign({}, game, {
           settings: Player.buildPack(pid)
         });
@@ -17,7 +17,7 @@ var Sockets = {
     },
 
     player: function(game) {
-      let pids = game.players.ids;
+      let pids = game.players.ids.list;
       for (var i = 0; i < pids.length; i++) {
         Sockets.send.message(pids[i], game, {
           opponent: true,
