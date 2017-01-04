@@ -87,7 +87,7 @@ function Game() {
     return {
       "player": playerId,
       "card": card,
-      "cp": player.updateCP(2, card.element),
+      "cp": player.cp.update(2, card.element),
       "break": self.field.addCard(playerId, card, "break")
     };
   }

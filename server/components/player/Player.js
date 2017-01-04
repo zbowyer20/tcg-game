@@ -44,19 +44,28 @@ function Player(id) {
     });
   }
 
-  self.resetCP = function() {
-    self.cp = {
-      amount: 0,
-      elements: []
-    };
-    return self.cp;
-  }
+  self.cp = {
+    amount: 0,
+    elements: [],
 
-  self.updateCP = function(amount, element) {
-    self.cp.amount += amount;
-    self.cp.elements.push(element);
-    self.cp.elements = getUniqueArray(self.cp.elements);
-    return self.cp;
+    reset: function() {
+      self.cp.amount = 0;
+      self.cp.elements = [];
+    },
+
+    update: function(amount, element) {
+      self.cp.amount += amount;
+      self.cp.elements.push(element);
+      self.cp.elements = getUniqueArray(self.cp.elements);
+      return self.cp;
+    },
+
+    pack: function() {
+      return {
+        amount: self.cp.amount,
+        elements: self.cp.elements
+      };
+    }
   }
 
   function getPublicHand() {
@@ -69,7 +78,7 @@ function Player(id) {
     return {
       id: self.id,
       hand: getPublicHand(),
-      cp: self.cp
+      cp: self.cp.pack()
     };
   }
 
@@ -77,11 +86,9 @@ function Player(id) {
     return {
       id: self.id,
       hand: self.hand,
-      cp: self.cp
+      cp: self.cp.pack()
     };
   }
-
-  self.cp = self.resetCP();
 
   return self;
 }
