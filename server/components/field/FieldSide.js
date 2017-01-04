@@ -20,14 +20,14 @@ function FieldSide() {
     return self[zone];
   }
 
-  function findCard(zone, id) {
+  function findCard(zone, cid) {
     return self[zone].find(card => {
-      return card.id == id;
+      return card.id == cid;
     });
   }
 
-  self.dullCard = function(id) {
-    let card = findCard('forward', id) || findCard('backup', id);
+  self.dullCard = function(cid) {
+    let card = findCard('forward', cid) || findCard('backup', cid);
     card.setPosition("dull");
     return card;
   }

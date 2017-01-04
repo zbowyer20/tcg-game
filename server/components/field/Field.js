@@ -3,32 +3,32 @@ var FieldSide = require('./FieldSide');
 function Field() {
   var self = {};
 
-  self.addPlayer = function(id) {
-    self[id] = FieldSide();
+  self.addPlayer = function(pid) {
+    self[pid] = FieldSide();
   }
 
   self.initialize = function(players) {
-    for (var id in players) {
-      self.addPlayer(id);
+    for (var pid in players) {
+      self.addPlayer(pid);
     }
   }
 
-  self.draw = function(id) {
-    return self[id].draw();
+  self.draw = function(pid) {
+    return self[pid].draw();
   }
 
-  self.addCard = function(playerId, card, zone) {
-    self[playerId].addCard(card, zone);
+  self.addCard = function(pid, card, zone) {
+    self[pid].addCard(card, zone);
   }
 
-  self.dullCard = function(playerId, cardId) {
-    return self[playerId].dullCard(cardId);
+  self.dullCard = function(pid, cid) {
+    return self[pid].dullCard(cid);
   }
 
   self.getPack = function(players) {
     let pack = {};
-    Object.keys(players).forEach(playerId => {
-      pack[playerId] = self[playerId].getPack();
+    Object.keys(players).forEach(pid => {
+      pack[pid] = self[pid].getPack();
     })
     return pack;
   }
