@@ -1,6 +1,6 @@
 function draw(params) {
   let card = params.field.draw(params.player.id);
-  params.player.addCard(card);
+  params.player.hand.add(card);
   return card;
 }
 

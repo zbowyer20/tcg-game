@@ -82,7 +82,7 @@ function Game() {
   */
   self.discard = function(playerId, cardId) {
     let player = self.players.list[playerId],
-        card = player.removeCard(cardId);
+        card = player.hand.remove(cardId);
 
     return {
       "player": playerId,
@@ -100,7 +100,7 @@ function Game() {
   */
   self.playCard = function(playerId, cardId) {
     let player = self.players.list[playerId],
-        card = player.playCard(cardId);
+        card = player.play(cardId);
 
     self.field.addCard(playerId, card, card.type);
 
