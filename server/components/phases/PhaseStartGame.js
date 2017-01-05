@@ -7,7 +7,8 @@ function PhaseStartGame(players) {
     players: players,
     type: "PHASE_START_GAME",
     splash: true,
-    skippable: false
+    skippable: false,
+    available: true
   }
 
   function reset() {
@@ -46,6 +47,9 @@ function PhaseStartGame(players) {
   }
 
   self.nextMove = function() {
+    if (self.moves.index + 1 > self.moves.events.length) {
+      self.available = false;
+    }
     return self.moves.events[self.moves.index++];
   }
 

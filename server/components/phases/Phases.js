@@ -9,14 +9,19 @@ function Phases(players) {
     players: {
       active: null,
       inactive: null
+    },
+    rounds: {
+      count: 0,
+      next: function() {
+        self.rounds.count++;
+        self.setActivePlayer();
+      }
     }
   };
 
   function init(starterId, players) {
-    self.phases.push(new PhaseStartGame(players));
-    self.phases.push(new PhaseDraw({
-      [starterId]: players[starterId]
-    }));
+    self.phases.push(new PhaseStartGame(self.players));
+    self.phases.push(new PhaseDraw(self.players));
   }
 
   self.setActivePlayer = function() {
@@ -43,17 +48,21 @@ function Phases(players) {
     return self.phases[self.i];
   }
 
-  function nextRound() {
-    self.setActivePlayer();
-  }
-
   self.next = function() {
     self.i++;
     if (self.i === self.phases.length) {
-      nextRound();
+      self.rounds.next();
     }
-    self.current().setPlayer
-    return self.current();
+    let phase = self.current();
+    // if this phase is a one-off and we've already done it
+    if (!phase.available) {
+      self.next();
+    } else {
+      if (self.rounds.count > 0) {
+        phase.setPlayers([self.players.active]);
+      }
+      return phase;
+    }
   }
 
   self.nextMove = function() {

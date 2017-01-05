@@ -7,7 +7,8 @@ function PhaseDraw(players) {
     players: players,
     type: "PHASE_DRAW",
     splash: true,
-    skippable: false
+    skippable: false,
+    available: true
   }
 
   function reset() {
@@ -40,10 +41,9 @@ function PhaseDraw(players) {
     return {
       optional: false,
       events: [{
-        fn: Moves.doEventForPlayers,
+        fn: Moves.draw,
         params: {
-          players: self.players,
-          fn: Moves.draw
+          player: self.players.active,
         }
       }]
     };
